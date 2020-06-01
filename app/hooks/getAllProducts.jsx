@@ -1,15 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import getJSONFileData from './getJSONFileData';
 
 const products_file_url = '/products.json'
 
-const getAllProducts = () => {
-  const [stateValue, selectItemByKey] = getJSONFileData(
+const getAllProducts = (user) => {
+  const [stateValue, selectItemByKey, updateItemByKey] = getJSONFileData(
     products_file_url,
     'products',
     'id'
   )
-  return [stateValue, selectItemByKey];
+  const updateByKey = (key, newDefinition) => {
+    if (user==="admin"){
+      updateItemByKey(key, newDefinition);
+    }
+  }
+  return [stateValue, selectItemByKey, updateByKey];
 }
 
 

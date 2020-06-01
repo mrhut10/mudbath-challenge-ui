@@ -1,6 +1,6 @@
-import react, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const getJSONFileData = (path, name, keyName, updateItemFunction) => {
+const getJSONFileData = (path, name, keyName) => {
   const [stateValue, setSateValue] = useState({
     status: 'downloading',
     data: [],
@@ -11,12 +11,12 @@ const getJSONFileData = (path, name, keyName, updateItemFunction) => {
     ...stateValue,
     selectedKey: key
   })
-  const updateItemByKey = key => {
-    const oldItem = itemByKey(key)
-    const newItem = updateItemFunction(oldItem)
+  const updateItemByKey = (key, newItem) => {
+    const oldItemIndex = stateValue.data.findIndex(item => item[keyName] === key);
+    const oldItem = stateValue.data[oldItemIndex];
     setSateValue({
       ...stateValue,
-      data: stateValue.data.map(item => item[keyName] === key ? newItem : oldItem)
+      data: stateValue.data.map((item, index) => index === oldItemIndex ? newItem : oldItem)
     })
   }
   useEffect(()=>{
