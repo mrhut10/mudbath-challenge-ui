@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Layout from './components/layout';
 import getAllCurrencies from './hooks/getAllCurrencies';
 import getAllProducts from './hooks/getAllProducts'
+import ProductList from './components/productList'
 import 'regenerator-runtime/runtime'
 
 
@@ -18,7 +19,11 @@ const App = () => {
     <Layout>
       <h1>XYZ Products</h1>
       <div>{JSON.stringify(allCurrencies)}</div>
-      <div>{JSON.stringify(AllProducts)}</div>
+      <ProductList
+        Products={AllProducts.data}
+        exchangeRates={allCurrencies.data}
+        selectedCurrency={allCurrencies.selectedKey}
+      />
     </Layout>
   )
 };
