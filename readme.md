@@ -10,4 +10,4 @@ Notes On Decisions
   * npm init
   * parcel bundler with react
   * tailwindCSS with postCSS
-* 
+* 20200602 2am - After implimenting a crude database, decided agaist using it and instead will just have a cruder implimented hook for a database
