@@ -3,23 +3,28 @@ import ProductListItem from './productListItem'
 
 const keyMatch = keyname => objA => objB => obj[keyname] === key;
 
-const ProductList = ({Products, exchangeRates, selectedCurrency}) => (
-  <ul className="bg-white flex flex-wrap">
-    {Products.map(product => {
+const ProductList = ({products, exchangeRates, updateProductByKey}) => {
+  const selectedCurrency = exchangeRates.selectedKey
+  return (
+  <ul className="flex flex-wrap bg-green-200">
+    {products.map(product => {
       const { id, name, description, relatedProducts, price } = product;
-      const exchangeRate = price.base === selectedCurrency ? 1 : exchangeRates.find(rate => rate.base === price.base).rates[selectedCurrency];
       return (
         <ProductListItem
+          className="sm:w-full md:w-1/2 lg:w-1/3 mb-4 p-2"
           name={name}
-          id={id}
+          key={id}
           description={description}
-          relatedProducts={relatedProducts.map(key => Products.find(item => item['id'] === key))}
-          price={price.amount * exchangeRate}
+          relatedProducts={relatedProducts}
+          price={price}
           selectedCurrency={selectedCurrency}
+          exchangeRates={exchangeRates}
+          allProducts={products}
+          updateProductByKey={updateProductByKey}
         />
       )
     })}
   </ul>
-)
+)}
 
 export default ProductList;

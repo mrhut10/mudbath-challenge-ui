@@ -14,15 +14,15 @@ const App = () => {
   if (allCurrencies.status === "downloaded" && allCurrencies.data && !allCurrencies.selectedKey) {
     setSelectedCurrency('AUD');
   }
-  const [AllProducts] = getAllProducts()
+  const [AllProducts, updateProductByKey] = getAllProducts()
   return (
     <Layout>
       <h1>XYZ Products</h1>
       <div>{JSON.stringify(allCurrencies)}</div>
       <ProductList
-        Products={AllProducts.data}
-        exchangeRates={allCurrencies.data}
-        selectedCurrency={allCurrencies.selectedKey}
+        products={AllProducts.data}
+        exchangeRates={allCurrencies}
+        updateProductByKey={updateProductByKey}
       />
     </Layout>
   )
