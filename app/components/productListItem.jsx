@@ -1,5 +1,6 @@
 import React from 'react';
 import Tile from './tile';
+import ProductDetails from './productDetailsPopup'
 import { findExchangeRate, findProductByID } from '../helpers'
 
 function ProductListItem ({key: id, exchangeRates, allProducts, updateProductByKey}) {
@@ -15,11 +16,12 @@ function ProductListItem ({key: id, exchangeRates, allProducts, updateProductByK
           <li>
             price: {!exRate ? 'LOADING' :  `${(price.amount * exRate).toFixed(2)} (${selectedCurrency})`}
           </li>
-        <li>ID: {id}</li>
-        <li>{description}</li>
-        <li>price: {price.toFixed(2)} (in {selectedCurrency})</li>
-      </ul>
-    </ul>
+          <ProductDetails
+          id={id}
+          allProducts={allProducts}
+          exchangeRates={exchangeRates}
+          updateProductByKey={updateProductByKey}
+        />
         </ul>
       </Tile>
     </li>
