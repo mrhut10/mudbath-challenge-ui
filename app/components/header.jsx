@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Header = ({title}) => (
-  <div className="flex w-full">
-    <div className="flex-auto">
+const Header = ({title, children}) => (
+  <div className="flex w-full flex-wrap">
+    <div className="text-center w-full">
       {title}
     </div>
-    <div className="flex-none w-64">
-      {title}
+    <div className="w-full">
+      {children}
     </div>
   </div>
 )
