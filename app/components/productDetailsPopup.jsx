@@ -26,18 +26,19 @@ const ProductDetails = ({id, exchangeRates, allProducts, updateProductByKey}) =>
           </li>
           <li>
             <h4 className="font-bold mt-4">Related Products</h4>
-            <ul className="flex flex-wrap">
-             {relatedProducts.map(relPro => {
-               const productDefinition = findProductByID(relPro, allProducts);
-               return (
-                 <ProductListItem
-                   id={productDefinition.id}
-                   allProducts={allProducts}
-                   exchangeRates={exchangeRates}
-                   updateProductByKey
-                 />
-               )
-             })}
+            <ul className="flex flex-wrap justify-center">
+            {relatedProducts.map(relPro => {
+              const productDefinition = findProductByID(relPro, allProducts);
+              return (
+                <ProductListItem
+                  key={productDefinition.id}
+                  id={productDefinition.id}
+                  allProducts={allProducts}
+                  exchangeRates={exchangeRates}
+                  updateProductByKey
+                />
+              )
+            })}
             </ul>
           </li>
         </ul>
