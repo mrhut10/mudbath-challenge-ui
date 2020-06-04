@@ -5,9 +5,9 @@ const Header = ({title, children}) => (
     <div className="text-center w-full">
       {title}
     </div>
-    <div className="w-full">
+    <nav className="w-full">
       {children}
-    </div>
+    </nav>
   </div>
 )
 
