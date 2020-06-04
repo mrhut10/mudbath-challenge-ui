@@ -16,6 +16,7 @@ function usePopupState(){
     )
   );
   return {
+    currentValue: EndValue,
     openProductDetails,
     openProductEdit,
     openCurrency,
