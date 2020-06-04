@@ -4,7 +4,7 @@ const getJSONFileData = (path, name, keyName) => {
   const [stateValue, setSateValue] = useState({
     status: 'downloading',
     data: [],
-    selectedKey: null,
+    selectedKey: undefined,
   });
   const itemByKey = key => stateValue.data.find(item => item[keyName] === key)
   const selectItemByKey = key => setSateValue({
@@ -27,10 +27,9 @@ const getJSONFileData = (path, name, keyName) => {
       console.log(`${name} downloaded`, value);
       return value;
     })
-    .then(value => setSateValue({
+    .then(values => setSateValue({
       status: 'downloaded',
-      data: value,
-      selected: null,
+      data: values,
     }));
   }, [])
   return [stateValue, selectItemByKey, updateItemByKey];
