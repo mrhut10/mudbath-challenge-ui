@@ -1,11 +1,6 @@
 export function findExchangeRate (base, target, exchangeRates) {
-  if (exchangeRates.status === 'downloading'){
-    // exchangeRates haven't loaded in yet
-    return undefined
-  }
-  
-  if (!target) {
-    // a currency isn't selected yet
+  if (exchangeRates.status === 'downloading' || !target){
+    // either exchangeRates haven't loaded yet or target isn't defined
     return undefined
   }
 
@@ -15,7 +10,8 @@ export function findExchangeRate (base, target, exchangeRates) {
   }
 
   const baseDef = exchangeRates.data.find(item => item.base === base)
-  return baseDef ? baseDef.rates[target] : undefined
+  const exRate = baseDef ? baseDef.rates[target] : undefined;
+  return exRate;
 }
 
 export function findProductByID(id, products){
