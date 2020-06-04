@@ -3,7 +3,7 @@ import Tile from './tile';
 import ProductDetails from './productDetailsPopup'
 import { findExchangeRate, findProductByID } from '../helpers'
 
-function ProductListItem ({key: id, exchangeRates, allProducts, updateProductByKey}) {
+function ProductListItem ({id, exchangeRates, allProducts, updateProductByKey}) {
   const selectedCurrency = exchangeRates.selectedKey;
   const {name, description, price, relatedProducts} = findProductByID(id, allProducts);
   const exRate = findExchangeRate(price.base ,exchangeRates.selectedKey, exchangeRates);
