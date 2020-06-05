@@ -15,5 +15,5 @@ export function findExchangeRate (base, target, exchangeRates) {
 }
 
 export function findProductByID(id, products){
-  return products.find(item => item.id === id);
+  return products ? products.find(item => item.id === id) : undefined;
 }
