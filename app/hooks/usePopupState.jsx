@@ -2,11 +2,10 @@ import React from 'react'
 import useStack from './useStack'
 
 function usePopupState(){
-  const [AllValues, EndValue, addValue, removeValue, danerousEditValue] = useStack();
+  const [AllValues, EndValue, addValue, removeValues, danerousEditValue] = useStack();
   const openProductDetails = id => addValue({type: 'productDetail', id});
   const openProductEdit = (id, user) => user === 'admin' ? addValue({type: 'productEdit', id}) : 'not loged in';
-  const openCurrency = () => addValue({type: 'currency'})
-  const closePopup = () => removeValue();
+  const closePopup = removeValues;
   const danerousProductIDChange = (oldID, newID) => dangerSetValues(
     AllValues.map(
       value =>
@@ -19,9 +18,9 @@ function usePopupState(){
     currentValue: EndValue,
     openProductDetails,
     openProductEdit,
-    openCurrency,
     closePopup,
     danerousProductIDChange,
+    wholeStack: AllValues,
   }
 }
 
