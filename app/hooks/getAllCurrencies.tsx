@@ -1,11 +1,17 @@
 import React from 'react';
 import getJSONFileData from './getJSONFileData'
-//import { FaGasPump } from 'react-icons/fa';
+
+export interface currencyInterface {
+  base: string,
+  rates: {
+    [key: string]: number
+  }
+}
 
 const exchange_rates_file_url = '/exchange_rates.json'
 
 const getAllCurrencies = () => {
-  const [stateValue, selectItemByKey] = getJSONFileData(
+  const {stateValue, selectItemByKey} = getJSONFileData<currencyInterface, 'base'>(
     exchange_rates_file_url,
     'exchangeRates',
     'base'
