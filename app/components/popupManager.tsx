@@ -83,7 +83,7 @@ const PopupManager = ({popupStack, user, allProducts, exchangeRates, updateProdu
               exchangeRates={exchangeRates}
               popupStack={popupStack}
               user={user}
-              updateProductByKey={updateProductById}
+              updateProductById={updateProductById}
             />
           )
           : (undefined)

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 interface HeaderProps {
   title: string | JSX.Element
-  children: JSX.ElementChildrenAttribute
+  children: ReactNode
 }
 
 const Header = ({title, children}: HeaderProps) => (

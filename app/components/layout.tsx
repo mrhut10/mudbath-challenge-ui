@@ -1,9 +1,9 @@
-import React, { JSXElementConstructor } from 'react';
+import React, { ReactNode } from 'react';
 import Header from './header';
 
 interface layoutProps {
-  children: JSX.ElementChildrenAttribute
-  MenuItems: JSX.ElementChildrenAttribute
+  children: ReactNode
+  MenuItems: ReactNode
 }
 
 const Layout = ({children, MenuItems}) => (

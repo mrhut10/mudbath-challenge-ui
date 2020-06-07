@@ -1,15 +1,13 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 
 interface selectableProps {
   checked: boolean
-  onClick?: (e: any)=> any
 }
 
-const Selectable = ({checked, onClick}:selectableProps) => {
+const Selectable = ({checked}:selectableProps) => {
   return (
     <div
-      className="relative inline-block align-middle"
-      onClick={onClick}
+      className="relative w-full"
     >
       {/*
         make visually hidden but not to screenreader
@@ -17,7 +15,7 @@ const Selectable = ({checked, onClick}:selectableProps) => {
       */}
       <input type="checkbox" checked={checked} className="absolute sr-only" readOnly/>
       {/* styled checkbox */}
-      <div className={`absolute inline-block w-full origin-top-right transform -rotate-45 mx-5 my-10 text-red-500 font-bold`}>
+      <div className={`absolute inline-block w-full origin-top-left transform -rotate-45 mx-5 my-10 text-red-400 font-bold`}>
         {checked ? 'SELECTED': undefined}
       </div>
     </div>

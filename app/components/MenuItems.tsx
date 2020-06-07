@@ -1,4 +1,4 @@
-import React, { Children, ReactElement } from 'react'
+import React from 'react'
 import Popup from 'reactjs-popup'
 import {FaUserAstronaut, FaDollarSign} from 'react-icons/fa'
 import { users } from '../hooks/useUser'
