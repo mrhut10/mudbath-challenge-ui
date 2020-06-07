@@ -4,8 +4,10 @@
   "description": "XYZ asked for a stock viewing system",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel index.html"
+    "test": "tsc --noEmit",
+    "start": "concurrently yarn:start-*",
+    "start-tsc": "tsc --noEmit --watch",
+    "start-dev": "parcel index.html"
   },
   "staticFiles": {
     "staticPath": "data",
@@ -17,14 +19,21 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-icons": "^3.10.0",
+    "react-modal": "^3.11.2",
     "reactjs-popup": "^1.5.0"
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^2.2.0",
+    "@types/node": "^14.0.11",
+    "@types/react": "^16.9.35",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-modal": "^3.10.5",
     "autoprefixer": "^9.8.0",
+    "concurrently": "^5.2.0",
+    "csstype": "^2.6.10",
     "parcel-bundler": "^1.12.4",
-    "parcel-plugin-static-files-copy": "^2.3.1",
+    "parcel-plugin-static-files-copy": "^2.4.1",
     "tailwindcss": "^1.4.6",
-    "typescript": "^3.9.3"
+    "typescript": "^3.9.5"
   }
 }

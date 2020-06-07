@@ -1,38 +1,54 @@
 import React from 'react'
 import useStack, { useStackReturnInterface } from './useStack'
-import { users } from '../helpers'
+import { users } from '../helpers/index'
+import { productInterface } from './getAllProducts'
 
 interface PopupItemInterface {
   type: "productDetail" | "productEdit"
-  id: string
+  id: number
 }
 
-const openProductDetails = ({addValue}:useStackReturnInterface<PopupItemInterface>) => (allProducts, id:string) => {
+interface PopupJSONStateInterface extends useStackReturnInterface<PopupItemInterface>{}
+
+export interface usePopupStateReturnInterface {
+  currentValue: PopupItemInterface
+    openProductDetails: (allProducts:productInterface[], id:productInterface["id"]) => void | Error
+    openProductEdit: (allProducts:productInterface[], id:productInterface["id"], user:users) => void | Error
+    closePopups: (count:number)=>void
+    danerousProductIDChange: (user: users, oldID: productInterface["id"], newID:productInterface["id"]) => void | Error
+    wholeStack: PopupItemInterface[],
+}
+
+const openProductDetails = ({addValue}:PopupJSONStateInterface) => (allProducts:productInterface[], id:number) => {
   if (!allProducts.find(product => product.id === id)){
     return new Error("can't open popup to a product that doesn't exist")
   }
 
   return addValue({type: 'productDetail', id})
 };
-const openProductEdit = ({allValues, addValue}:useStackReturnInterface<PopupItemInterface>) => (allProducts, id:string, user:users) => {
+const openProductEdit = ({allValues, addValue}:PopupJSONStateInterface) => (allProducts:productInterface[], id:PopupItemInterface["id"], user:users) => {
   if (user !== 'admin'){
-    return new Error('Only admin user can edit');
+    throw new Error('Only admin user can edit');
+    return;
   }
   if (!allProducts.find(product => product.id === id)){
-    return new Error("can't open popup to a product that doesn't exist")
+    throw new Error("can't open popup to a product that doesn't exist")
+    return;
   }
 
   return addValue({type:"productEdit", id})
-  
 }
-const closePopups = ({removeValues}:useStackReturnInterface<PopupItemInterface>) => removeValues;
-const danerousProductIDChange = ({allValues, dangerSetValues}:useStackReturnInterface<PopupItemInterface>) => (user: users, oldID: string, newID:string) => {
+
+const closePopups = ({removeValues}:PopupJSONStateInterface) => removeValues;
+const danerousProductIDChange = ({allValues, dangerSetValues}:PopupJSONStateInterface) => (user: users, oldID: PopupItemInterface["id"], newID:PopupItemInterface["id"]) => {
   if (user !== 'admin'){
-    return new Error("only admin can change ID's in stack")
+    throw new Error("only admin can change ID's in stack")
+    return;
   }
 
   if (allValues.find(product => product.id === newID)){
-    return new Error("newID already exists")
+    throw new Error("newID already exists")
+    return;
   }
 
   return dangerSetValues(
@@ -45,12 +61,12 @@ const danerousProductIDChange = ({allValues, dangerSetValues}:useStackReturnInte
   )
 }
 
-function usePopupState(){
-  const StackState = useStack<PopupItemInterface>();
-  const {allValues, endValue} = StackState
+function usePopupState():usePopupStateReturnInterface{
+  const StackState:PopupJSONStateInterface = useStack<PopupItemInterface>();
+  const {allValues, lastValue} = StackState
 
   return {
-    currentValue: endValue,
+    currentValue: lastValue,
     openProductDetails: openProductDetails(StackState),
     openProductEdit: openProductEdit(StackState),
     closePopups: closePopups(StackState),

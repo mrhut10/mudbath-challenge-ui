@@ -1,6 +1,11 @@
 import React from 'react';
 
-const Header = ({title, children}) => (
+interface HeaderProps {
+  title: string | JSX.Element
+  children: JSX.ElementChildrenAttribute
+}
+
+const Header = ({title, children}: HeaderProps) => (
   <div className="flex w-full flex-wrap">
     <div className="text-center w-full">
       {title}

@@ -2,24 +2,27 @@ import React, { useState, useEffect } from 'react';
 
 export interface JSONFileState<T, K extends keyof T> {
   status: 'downloading' | 'downloaded'
-  selectedKey: K | undefined | null
+  key: K
+  selectedKey: T[K] | undefined
   data: T[]
 }
+
 
 function getJSONFileData<T, K extends keyof T>(path:string, name:string, keyName:K){
   const initialState:JSONFileState<T, K> = {
     status: 'downloading',
-    data: [],
+    key: keyName,
     selectedKey: undefined,
+    data: [],
   }
-  const [stateValue, setSateValue]:[JSONFileState<T, K>, (a:JSONFileState<T, K>) => any] = useState(initialState);
+  const [stateValue, setSateValue] = useState(initialState) as [JSONFileState<T, K>, (a:JSONFileState<T, K>) => any];
 
-  const itemByKeyValue = (keyValue:any):any => stateValue.data.find(item => item[keyName] === keyValue)
+  const itemByKeyValue = (keyValue:T[K]):T => stateValue.data.find(item => item[keyName] === keyValue)
   
-  const selectItemByKey = (keyValue:any) => {
+  function selectItemByKey(keyValue:T[K]) {
     if (!itemByKeyValue(keyValue)){
       // item doesn't exist
-      return new Error("can't select an item that doesn't exist")
+      throw Error("can't select an item that doesn't exist")
     }
 
     return setSateValue({
@@ -28,7 +31,7 @@ function getJSONFileData<T, K extends keyof T>(path:string, name:string, keyName
     })
   }
 
-  const updateItemByKey = (keyValue:any, newItem:T) => {
+  const updateItemByKey = (keyValue:T[K], newItem:T) => {
     const oldItemIndex = stateValue.data.findIndex(item => item[keyName] === keyValue);
     const oldItem = stateValue.data[oldItemIndex];
 
@@ -43,7 +46,7 @@ function getJSONFileData<T, K extends keyof T>(path:string, name:string, keyName
       stateValue.data.find(item => item[keyName] === newItem[keyName])
     ) {
       // id is getting change and will be a conflict
-      return new Error("can't change as will create conflict of multiple items with same id");
+      throw new Error("can't change as will create conflict of multiple items with same id");
     }
 
     return setSateValue({
@@ -65,6 +68,7 @@ function getJSONFileData<T, K extends keyof T>(path:string, name:string, keyName
     .then(values => setSateValue({
       status: 'downloaded',
       data: values,
+      key: keyName,
       selectedKey: undefined
     }));
   }, [])

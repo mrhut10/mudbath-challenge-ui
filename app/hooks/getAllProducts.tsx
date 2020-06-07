@@ -1,40 +1,36 @@
 import React from 'react';
 import getJSONFileData from './getJSONFileData';
-import { users } from '../helpers'
+import { users } from './useUser'
 
 
 export interface productInterface {
-  id: string,
+  id: number,
   name: string,
   description: string,
   price: {
     base: string,
     amount: number
   }
-  relatedProducts: string[]
+  relatedProducts: number[]
 }
 
 const products_file_url = '/products.json'
 
-const getAllProducts = (user: users) => {
-  const {stateValue, selectItemByKey, updateItemByKey} = getJSONFileData<productInterface, "id">(
+const getAllProducts = () => {
+  const {stateValue:allProducts, selectItemByKey, updateItemByKey} = getJSONFileData<productInterface, "id">(
     products_file_url,
     'products',
     "id"
   )
-  const updateByKey = (keyValue:any, newDefinition:productInterface) => {
+  function updateProductByKey(keyValue:productInterface["id"], newDefinition:productInterface, user:users){
     // only allow admin to edit
     if (user !== "admin"){
-      return new Error("must be admin to update Product")
+      throw new Error("must be admin to update Product")
     }
     
-    try {
-      updateItemByKey(keyValue, newDefinition);
-    } catch (error) {
-      alert(error.message)
-    }
+    updateItemByKey(keyValue, newDefinition);
   }
-  return [stateValue, selectItemByKey, updateByKey];
+  return {allProducts, selectItemByKey, updateProductByKey};
 }
 
 

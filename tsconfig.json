@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "baseUrl": "./app",
+    "paths": {
+      "~/*": ["./*"]
+    },
+    "noEmit": true,
+    "jsx": "react",
+    "typeRoots": ["node_modules/@types"],
+    "target": "ES6",
+  },
+  "include": [
+    "app/**/*",
+    "@types",
+  ],
+}

@@ -1,8 +1,8 @@
 import { JSONFileState } from '../hooks/getJSONFileData'
-import { currencyInterface } from '../hooks/getAllCurrencies'
+import { currencyStateInterface, currencyItem } from '../hooks/getAllCurrencies'
 import { productInterface } from '../hooks/getAllProducts'
 
-export function findExchangeRate (base:string, target:string, exchangeRates:JSONFileState<currencyInterface, 'base'>):number | undefined {
+export function findExchangeRate (base:string, target:string, exchangeRates:currencyStateInterface):number | undefined {
   if (exchangeRates.status === 'downloading' || !target){
     // either exchangeRates haven't loaded yet or target isn't defined
     return undefined
@@ -18,8 +18,16 @@ export function findExchangeRate (base:string, target:string, exchangeRates:JSON
   return exRate;
 }
 
-export function findProductByID(id:any, products:productInterface[]):productInterface | undefined{
+export function findProductByID(id:number, products:productInterface[]):productInterface | undefined{
   return products ? products.find(item => item.id === id) : undefined;
 }
 
 export type users = "user" | "admin"
+
+
+export const clampNumber = (min:number, max:number) => (value:number):number => {
+  if (value < min) return min;
+  if (value > max) return max;
+  // is within range
+  return value;
+}
