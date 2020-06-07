@@ -32,32 +32,31 @@ const ProductEdit = ({id, popupStack, user, allProducts, exchangeRates}:ProductE
   const toogleRelatedProduct = (key: productInterface["id"]) =>{
     setTrackedFields({
       ...trackedFields,
-      relatedProducts: 
-        relatedProducts.includes(key)
-        ? relatedProducts.filter(item => item !== key)
+      relatedProducts:
+      trackedFields.relatedProducts.includes(key)
+        ? trackedFields.relatedProducts.filter(item => item !== key)
         : [...trackedFields.relatedProducts, key]
     })
   }
 
   const handlefieldChange = (fieldName: keyof productInterface | 'base' ) => e => {
     const value = e.target.value
-    const NewValues = {...trackedFields}
 
     switch (fieldName) {
+      case 'id':
+        setTrackedFields({...trackedFields, id: Number(value)})
+        break;
       case 'price':
-        NewValues.price.amount = value as number;
+        setTrackedFields({...trackedFields, price: {...trackedFields.price, amount:Number(value)}})
         break;
       case 'base':
-        NewValues.price.base = value as string;
-        break;
-      default:
-        NewValues[fieldName] = value;
+        setTrackedFields({...trackedFields, price: {...trackedFields.price, base: value}})
         break;
     }
-    setTrackedFields(NewValues);
+    console.log(trackedFields);
   }
 
-  const invalidID = trackedFields.id === id ? false : allProducts.filter(item => item.id === trackedFields.id).length > 0
+  const invalidID = trackedFields.id === id ? false : !!allProducts.find(item => item.id === trackedFields.id)
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData(e.target)
@@ -66,7 +65,17 @@ const ProductEdit = ({id, popupStack, user, allProducts, exchangeRates}:ProductE
     
   return <form className="flex flex-wrap" onSubmit={handleSubmit}>
       <label className="w-1/4 font-bold my-2" htmlFor="id">id:</label>
-      <input className={`w-3/4 bg-gray-400 my-2 ${invalidID ? 'bg-red-400':''}`} id="id" name="id" type="number" step="1" required min="1" defaultValue={id} onChange={(e)=>handlefieldChange('id')(Number(e.target.value))}/>
+      <input 
+        className={`w-3/4 bg-gray-400 my-2 ${invalidID ? 'bg-red-400':''}`}
+        id="id"
+        name="id"
+        type="number"
+        step="1"
+        required
+        min="1"
+        defaultValue={id}
+        onChange={(e)=>handlefieldChange('id')(e)}
+      />
       {invalidID ? <span className="w-full text-red-400 text-right">ID already Used</span> : undefined}
 
       <label className="w-1/4 font-bold my-2" htmlFor="name">name:</label>
