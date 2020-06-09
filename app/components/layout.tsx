@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import Header from './header';
+import Logo from './logo'
 
 interface layoutProps {
   children: ReactNode
@@ -9,15 +10,7 @@ interface layoutProps {
 const Layout = ({children, MenuItems}) => (
   <div className="bg-mainbg font-mono text-dark">
     <Header
-      title={
-        <div className="capitalize font-bold">
-          <span className="tracking-tighter">
-            XYZ
-          </span>
-          <span className="mx-3 text-deemphgrey">by</span>
-          <span>Mudbath</span>
-        </div>
-      }
+      title={<Logo includeByMudBath/>}
       children={MenuItems}
     />
     {children}
