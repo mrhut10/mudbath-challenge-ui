@@ -7,9 +7,17 @@ interface layoutProps {
 }
 
 const Layout = ({children, MenuItems}) => (
-  <div className="bg-green-600">
+  <div className="bg-mainbg font-mono text-dark">
     <Header
-      title={<div>XYZ Product System</div>}
+      title={
+        <div className="capitalize font-bold">
+          <span className="tracking-tighter">
+            XYZ
+          </span>
+          <span className="mx-3 text-deemphgrey">by</span>
+          <span>Mudbath</span>
+        </div>
+      }
       children={MenuItems}
     />
     {children}

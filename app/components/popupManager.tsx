@@ -3,7 +3,7 @@ import Popup from 'reactjs-popup'
 import {findProductByID, findExchangeRate} from '../helpers/index'
 import ProductDetails from './productDetailsContent';
 import ProductEdit from './productEditContent';
-import Tile from './tile';
+import Card from './card';
 import { usePopupStateReturnInterface } from '../hooks/usePopupState'
 import { users } from '../hooks/useUser'
 import { productInterface } from '../hooks/getAllProducts'
@@ -41,7 +41,7 @@ const PopupManager = ({popupStack, user, allProducts, exchangeRates, updateProdu
             <h3 className="flex-grow flex flex-wrap">{
               wholeStack.map((menu, i, list) => (
                 <div key={i} className="w-42 p-2">
-                  <Tile>
+                  <Card>
                     <div
                       className="hover:text-blue-400"
                       onClick={()=>{
@@ -50,7 +50,7 @@ const PopupManager = ({popupStack, user, allProducts, exchangeRates, updateProdu
                     >
                       / {menu.type} id: {menu.id}
                     </div>
-                  </Tile>
+                  </Card>
                 </div>
               ))
             }</h3>

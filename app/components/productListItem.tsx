@@ -1,5 +1,6 @@
 import React from 'react'
-import Tile from './tile'
+import Card from './card'
+import Button from './button'
 import { findExchangeRate, findProductByID, users } from '../helpers/index'
 import { productInterface } from '../hooks/getAllProducts'
 import { currencyStateInterface } from '../hooks/getAllCurrencies'
@@ -31,24 +32,31 @@ function ProductListItem ({
 
   return (
     <li className="w-full">
-      <Tile>
-        <h3 className="font-bold text-red-600">{name}</h3>
-        <ul>
-          <li>
-            price: {!exRate ? 'LOADING' :  `${(price.amount * exRate).toFixed(2)} (${selectedCurrency})`}
-          </li>
+      <Card>
+        <h3 className="font-bold text-dark">{name}</h3>
+        {
+          !exRate
+          ? <span>Loading...</span>
+          : (
+            <div className="w-full flex">
+              <span className="text-lg">${(price.amount * exRate).toFixed(2)}</span>{" "}
+              <span className="text-sm">{selectedCurrency}</span>
+            </div>
+          )
+        }
+        <div className="w-full flex items-center justify-around">
           {
             showDetailsButton
-            ? <li><button onClick={()=>openProductDetails(allProducts,id)}>See Details</button></li>
-            : (undefined)
+            ? (<Button onClick={()=>openProductDetails(allProducts,id)}>Details</Button>)
+            : undefined
           }
           {
             showEditButton
-            ? <li><button onClick={()=>openProductEdit(allProducts,id, user)}>Edit Details</button></li>
-            : (undefined)
+            ? (<Button disabled={user !== 'admin'} onClick={()=>openProductEdit(allProducts,id, user)}>Edit</Button>)
+            : undefined
           }
-        </ul>
-      </Tile>
+        </div>
+      </Card>
     </li>
   )
 }

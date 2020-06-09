@@ -33,7 +33,7 @@ const App = () => {
       <ProductList>
         {
           allProducts.data.map(({id}, i, list) => (
-            <ProductListItem key={id} user={user} id={id} allProducts={list} exchangeRates={allCurrencies} popupStack={popupStack}/>
+            <ProductListItem key={id} user={user} id={id} allProducts={list} exchangeRates={allCurrencies} popupStack={popupStack} showEditButton/>
           ))
         }
       </ProductList>
