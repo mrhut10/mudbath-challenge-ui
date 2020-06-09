@@ -19,12 +19,10 @@ interface CurrencyItemProps {
 const UserItem = ({user, toogleUser, setUser}:UserItemProps) => {
   const alternativeUser = user === 'admin' ? 'user' : 'admin';
   return (
-    <div className="p-2 relative">
-      <Button onClick={()=>setUser(alternativeUser)}>
-        <span className="font-bold">
+    <div className="p-3">
+      <a className="text-shadow-links hover:font-bold" onClick={()=>setUser(alternativeUser)}>
         {user === 'admin' ? 'Log out' : 'Sign In'}
-        </span>
-      </Button>
+      </a>
       {/*
         this is if i want a dropdown menu later
         <ul className="fixed box-border w-full m-2 rounded-lg z-10 bg-mainbg border-2 border-buttonbord">
