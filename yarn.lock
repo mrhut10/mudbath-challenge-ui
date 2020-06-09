@@ -5278,7 +5278,14 @@ symbol-tree@^3.2.2:
   resolved "https://registry.yarnpkg.com/symbol-tree/-/symbol-tree-3.2.4.tgz#430637d248ba77e078883951fb9aa0eed7c63fa2"
   integrity sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==
 
-tailwindcss@^1.4.6:
+tailwindcss-textshadow@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/tailwindcss-textshadow/-/tailwindcss-textshadow-2.0.0.tgz#cf6f78bd4e8d30f9ce646d8a283bc571d47db691"
+  integrity sha512-tgRyvShW9N/wW4eMEYYUBfmZOj60rmE/mTDzrQ31wLLktkA4U6/9aBxNM15CcZ1rh7bNXNB4xYuyq7UwNG6iUA==
+  dependencies:
+    tailwindcss "^1.1.4"
+
+tailwindcss@^1.1.4, tailwindcss@^1.4.6:
   version "1.4.6"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-1.4.6.tgz#17b37166ccda08d7e7f9ca995ea48ce1e0089700"
   integrity sha512-qV0qInUq1FWih39Bc5CWECdgObSzRrbjGD4ke4kAPSIq6WXrPhv0wwOcUWJgJ66ltT9j+XnSRYikG8WNRU/fTQ==

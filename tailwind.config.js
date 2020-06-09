@@ -1,4 +1,8 @@
+const tailwindcssTextShadow = require('tailwindcss-textshadow')
 module.exports = {
+  plugins: [
+    tailwindcssTextShadow
+  ],
   theme: {
     extend: {
       colors: {
@@ -15,6 +19,13 @@ module.exports = {
       },
       boxShadow: {
         card: '0px 6px 5px rgba(0, 0, 0, 0.006), 0px 4px 4px rgba(0, 0, 0, 0.25)'
+      },
+      textShadow: {
+        default: '0 2px 1px rgba(0, 0, 0, 0.12)',
+        md: '0 1px 1px rgba(0, 0, 0, 0.12)',
+        h1: '0 0 3px #FF0000, 0 0 5px #0000FF',
+        xl: '0 0 3px rgba(0, 0, 0, .8), 0 0 5px rgba(0, 0, 0, .9)',
+        none: 'none',
       }
     },
   }
