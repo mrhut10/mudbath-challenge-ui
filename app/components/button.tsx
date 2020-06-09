@@ -7,7 +7,7 @@ interface ButtonProps {
 }
 
 const Button = ({children, onClick, disabled}: ButtonProps) => (
-  <button disabled={disabled} className={`rounded-lg ${!disabled ? 'bg-buttonbg' : 'bg-disabled text-cardbg'} p-2 border-2 border-buttonbord hover:border-light`} onClick={onClick}>
+  <button disabled={disabled} className={`rounded-lg ${!disabled ? 'bg-buttonbg' : 'bg-disabled text-cardbg'} p-1 border-2 border-buttonbord hover:border-light`} onClick={onClick}>
     {children}
   </button>
 )
