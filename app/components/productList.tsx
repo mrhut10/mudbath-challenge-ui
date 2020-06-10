@@ -20,8 +20,7 @@ const ProductList = ({children, selectedKeys=[], toogleChild=undefined}:ProductL
       return (
         <div key={childKey} className="w-full md:w-1/2 relative">
           <div
-            key={childKey}
-            className="inline-block w-full border-2"
+            className="inline-block w-full"
             onClick={onClickHandler}
           >
             {
