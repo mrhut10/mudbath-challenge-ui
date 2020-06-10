@@ -10,19 +10,19 @@ interface ProductListProps {
 
 const ProductList = ({children, selectedKeys=[], toogleChild=undefined}:ProductListProps) => {
   return (
-  <ul className="flex flex-wrap bg-green-200 justify-center">
+  <ul className="flex flex-wrap">
     {children.map((child) => {
       const childKey = child.props.id
+      const onClickHandler = !!toogleChild && typeof toogleChild === 'function'
+        ? ()=> toogleChild(Number(childKey))
+        : undefined
+
       return (
-        <div key={childKey} className="w-full sm:w-1/2 md:w-1/3 p-2 my-2 relative">
+        <div key={childKey} className="w-full md:w-1/2 relative">
           <div
             key={childKey}
             className="inline-block w-full border-2"
-            onClick={
-              !!toogleChild && typeof toogleChild === 'function'
-              ? ()=>toogleChild(Number(childKey))
-              : undefined
-            }
+            onClick={onClickHandler}
           >
             {
               !!toogleChild && typeof toogleChild === 'function'
