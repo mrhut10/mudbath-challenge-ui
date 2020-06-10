@@ -22,7 +22,7 @@ module.exports = {
       },
       textShadow: {
         default: '0 2px 1px rgba(0, 0, 0, 0.12)',
-        links: '0 1px 1px rgba(0, 0, 0, 0.12)',
+        link: '0 1px 1px rgba(0, 0, 0, 0.12)',
         h1: '0 0 3px #FF0000, 0 0 5px #0000FF',
         xl: '0 0 3px rgba(0, 0, 0, .8), 0 0 5px rgba(0, 0, 0, .9)',
         none: 'none',
