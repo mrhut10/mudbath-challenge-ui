@@ -20,7 +20,7 @@ const UserItem = ({user, toogleUser, setUser}:UserItemProps) => {
   const alternativeUser = user === 'admin' ? 'user' : 'admin';
   return (
     <div className="p-3">
-      <a className="text-shadow-links hover:font-bold" onClick={()=>setUser(alternativeUser)}>
+      <a className="text-shadow-link hover:font-bold" onClick={()=>setUser(alternativeUser)}>
         {user === 'admin' ? 'Log out' : 'Sign In'}
       </a>
       {/*

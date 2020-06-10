@@ -15,7 +15,7 @@ const Selectable = ({checked}:selectableProps) => {
       */}
       <input type="checkbox" checked={checked} className="absolute sr-only" readOnly/>
       {/* styled checkbox */}
-      <div className={`absolute inline-block w-full origin-top-left transform -rotate-45 mx-5 my-10 text-red-400 font-bold`}>
+      <div className={`fixed w-full h-full origin-top-left transform -rotate-45 mx-5 my-10 text-red-400 font-bold`}>
         {checked ? 'SELECTED': undefined}
       </div>
     </div>

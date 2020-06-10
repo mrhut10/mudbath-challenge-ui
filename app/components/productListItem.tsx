@@ -31,7 +31,7 @@ function ProductListItem ({
   const {openProductDetails, openProductEdit} = popupStack;
 
   return (
-    <li className="w-full">
+    <li className="w-full p-5">
       <Card>
         <h3 className="font-bold text-dark">{name}</h3>
         {
