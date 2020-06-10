@@ -26,36 +26,44 @@ function ProductListItem ({
   showEditButton=(user==='admin')
 }:ProductListItemProps) {
   const selectedCurrency = exchangeRates.selectedKey;
-  const {name, price} = findProductByID(id, allProducts);
+  const {name, price, photo} = findProductByID(id, allProducts);
   const exRate = findExchangeRate(price.base, exchangeRates.selectedKey, exchangeRates);
   const {openProductDetails, openProductEdit} = popupStack;
 
   return (
     <li className="w-full p-5">
       <Card>
-        <h3 className="font-bold text-dark">{name}</h3>
-        {
-          !exRate
-          ? <span>Loading...</span>
-          : (
-            <div className="w-full flex">
-              <span className="text-lg">${(price.amount * exRate).toFixed(2)}</span>{" "}
-              <span className="text-sm">{selectedCurrency}</span>
+          <div className="flex overflow-hidden h-56">
+            <img className="flex-grow-0" src={photo} width="200" height="200"/>
+            <div className="w-full flex-grow flex-shrink p-8 flex flex-wrap justify-between space-x-10 space-y-5 align-top">
+              {/*Title Price and Buttons */}
+              <div className="titleandprice space-x-2 ml-2">
+                <h3 className="font-bold text-dark">{name}</h3>
+                  {
+                    !exRate
+                    ? ("LOADING")
+                    : (
+                      <div className="space-x-4">
+                        <span className="text-lg">${(price.amount * exRate).toFixed(2)}</span>
+                        <span className="text-sm">{selectedCurrency}</span>
+                      </div>
+                    )
+                  }
+              </div>
+              <div className="space-x-5 h-10">
+                {
+                  showDetailsButton
+                  ? (<Button onClick={()=>openProductDetails(allProducts,id)}>Details</Button>)
+                  : undefined
+                }
+                {
+                  showEditButton
+                  ? (<Button disabled={user !== 'admin'} onClick={()=>openProductEdit(allProducts,id, user)}>Edit</Button>)
+                  : undefined
+                }
+              </div>
             </div>
-          )
-        }
-        <div className="w-full flex items-center justify-around">
-          {
-            showDetailsButton
-            ? (<Button onClick={()=>openProductDetails(allProducts,id)}>Details</Button>)
-            : undefined
-          }
-          {
-            showEditButton
-            ? (<Button disabled={user !== 'admin'} onClick={()=>openProductEdit(allProducts,id, user)}>Edit</Button>)
-            : undefined
-          }
-        </div>
+          </div>
       </Card>
     </li>
   )

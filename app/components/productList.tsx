@@ -18,7 +18,7 @@ const ProductList = ({children, selectedKeys=[], toogleChild=undefined}:ProductL
         : undefined
 
       return (
-        <div key={childKey} className="box-border w-full md:w-1/2 pl-10 relative">
+        <div key={childKey} className="box-border w-full lg:w-1/2 pl-10 relative">
           <div
             className="inline-block w-full"
             onClick={onClickHandler}
