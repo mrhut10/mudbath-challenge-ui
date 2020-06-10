@@ -33,11 +33,11 @@ function ProductListItem ({
   return (
     <li className="w-full p-5">
       <Card>
-          <div className="flex overflow-hidden h-56">
-            <img className="flex-grow-0" src={photo} width="200" height="200"/>
-            <div className="w-full flex-grow flex-shrink p-8 flex flex-wrap justify-between space-x-10 space-y-5 align-top">
+          <div className="flex flex-wrap xsm:flex-no-wrap overflow-hidden w-full">
+            <img className="flex-grow xsm:flex-grow-0 flex-shrink-0" src={photo} width="200" height="200"/>
+            <div className="flex-shrink p-8 flex flex-wrap justify-between w-full">
               {/*Title Price and Buttons */}
-              <div className="titleandprice space-x-2 ml-2">
+              <div className="titleandprice space-x-2 mr-12">
                 <h3 className="font-bold text-dark">{name}</h3>
                   {
                     !exRate
@@ -50,15 +50,15 @@ function ProductListItem ({
                     )
                   }
               </div>
-              <div className="space-x-5 h-10">
+              <div className="flex justify-evenly flex-wrap h-10 p-2 ">
                 {
                   showDetailsButton
-                  ? (<Button onClick={()=>openProductDetails(allProducts,id)}>Details</Button>)
+                  ? (<Button className="box-border mb-2 mx-2" onClick={()=>openProductDetails(allProducts,id)}>Details</Button>)
                   : undefined
                 }
                 {
                   showEditButton
-                  ? (<Button disabled={user !== 'admin'} onClick={()=>openProductEdit(allProducts,id, user)}>Edit</Button>)
+                  ? (<Button className="box-border mb-2 mx-2" disabled={user !== 'admin'} onClick={()=>openProductEdit(allProducts,id, user)}>Edit</Button>)
                   : undefined
                 }
               </div>

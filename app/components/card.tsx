@@ -6,7 +6,7 @@ interface TileProps {
 
 const Card = ({children}:TileProps) => (
     <div
-      className="w-full overflow-hidden bg-cardbg rounded-lg shadow-card hover:border-2 hover:border-light"
+      className="w-full overflow-hidden bg-cardbg rounded-lg shadow-card hover:border-2 hover:border-light object-scale-down"
     >
       {children}
   </div>

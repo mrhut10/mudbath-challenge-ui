@@ -8,11 +8,11 @@ interface HeaderProps {
 
 const Header = ({title, children}: HeaderProps) => (
   <>
-    <div className="flex w-full justify-between items-center flex-wrap">
-      <div className="px-4">
+    <div className="flex w-full justify-between items-center flex-wrap px-5">
+      <div className="">
         {title}
       </div>
-      <nav className="pr-4">
+      <nav className="">
         {children}
       </nav>
     </div>
