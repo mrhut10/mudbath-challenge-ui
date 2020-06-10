@@ -73,7 +73,7 @@ function getJSONFileData<T, K extends keyof T>(path:string, name:string, keyName
     }));
   }, [])
   return {
-    stateValue, selectItemByKey, updateItemByKey
+    stateValue, selectItemByKey, updateItemByKey, danerouslySetAllValues: setSateValue
   };
 }
 
