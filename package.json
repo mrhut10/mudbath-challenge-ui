@@ -16,9 +16,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@reach/dialog": "^0.10.3",
     "crypto-js": "^4.0.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
     "react-icons": "^3.10.0",
     "react-modal": "^3.11.2",
     "reactjs-popup": "^1.5.0"
