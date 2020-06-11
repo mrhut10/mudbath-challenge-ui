@@ -40,7 +40,7 @@ const ProductDetails = ({id, popupStack, user, allProducts, exchangeRates}:Produ
         <div className="flex flex-col justify-between">
           <div className="flex justify-between">
             <h2 className="m-2 text-xl">{name}</h2>
-            <div className="space-x-3 flex" space-x-3>
+            <div className="space-x-3 flex">
               {
                 user === 'admin' && <button onClick={()=>popupStack.openProductEdit(allProducts, id, user)}>Edit</button> as ReactElement
               }
