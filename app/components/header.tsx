@@ -4,12 +4,13 @@ import Line from './line'
 interface HeaderProps {
   title: string | JSX.Element
   children: ReactNode
+  className?: string,
 }
 
-const Header = ({title, children}: HeaderProps) => (
-  <>
-    <div className="flex w-full justify-between items-center flex-wrap px-5">
-      <div className="">
+const Header = ({title, children, className}: HeaderProps) => (
+  <div className="sticky top-0 w-full z-10 bg-mainbg">
+    <div className={`flex w-full justify-between items-center flex-wrap px-5 ${className}`}>
+      <div>
         {title}
       </div>
       <nav className="">
@@ -17,7 +18,7 @@ const Header = ({title, children}: HeaderProps) => (
       </nav>
     </div>
     <Line/>
-  </>
+  </div>
 )
 
 export default Header;

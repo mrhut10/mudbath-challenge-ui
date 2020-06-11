@@ -8,7 +8,7 @@ interface layoutProps {
 }
 
 const Layout = ({children, MenuItems}) => (
-  <div className="bg-mainbg font-mono text-dark">
+  <div className="bg-mainbg font-mono text-dark relative">
     <Header
       title={<Logo includeByMudBath/>}
       children={MenuItems}
