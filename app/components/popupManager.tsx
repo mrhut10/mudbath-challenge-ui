@@ -1,13 +1,15 @@
 import React from 'react'
-import Popup from 'reactjs-popup'
-import {findProductByID, findExchangeRate} from '../helpers/index'
+// import Dialog from '@reach/dialog'
+import { DialogOverlay, DialogContent } from '@reach/dialog';
+
 import ProductDetails from './productDetailsContent';
 import ProductEdit from './productEditContent';
-import Card from './card';
 import { usePopupStateReturnInterface } from '../hooks/usePopupState'
 import { users } from '../hooks/useUser'
 import { productInterface } from '../hooks/getAllProducts'
 import { currencyStateInterface } from '../hooks/getAllCurrencies'
+
+import '@reach/dialog/styles.css'
 
 interface PopupManagerProps {
   popupStack: usePopupStateReturnInterface
@@ -28,13 +30,10 @@ const PopupManager = ({user, allProducts, exchangeRates, popupStack, updateProdu
   } = popupStack;
   
     return (
-    <Popup
-      modal
-      open={!!popupStack.currentValue}
-      closeOnDocumentClick={false}
-      closeOnEscape={false}
+    <DialogOverlay
+      isOpen={!!popupStack.currentValue}
     >
-      <div className="max-h-screen">
+      <div className="max-h-screen bg-mainbg box-border mt-20 m-10 z-50">
         {
           !currentValue
           ? (undefined)
@@ -45,7 +44,7 @@ const PopupManager = ({user, allProducts, exchangeRates, popupStack, updateProdu
           )
         }
       </div>
-    </Popup>
+    </DialogOverlay>
   )
 }
 
