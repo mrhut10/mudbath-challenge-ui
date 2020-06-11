@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { findExchangeRate, findProductByID, users } from '../helpers/index'
 import ProductList from './productList'
 import ProductListItem from './productListItem'
@@ -40,13 +40,18 @@ const ProductDetails = ({id, popupStack, user, allProducts, exchangeRates}:Produ
         <div className="flex flex-col justify-between">
           <div className="flex justify-between">
             <h2 className="m-2 text-xl">{name}</h2>
-            <button
-              className="text-xl"
-              onClick={()=>popupStack.closePopups(1)}
-            >
-              <span>X</span>{' '}
-              <span className="sr-only">close</span>
-            </button>
+            <div className="space-x-3 flex" space-x-3>
+              {
+                user === 'admin' && <button onClick={()=>popupStack.openProductEdit(allProducts, id, user)}>Edit</button> as ReactElement
+              }
+              <button
+                className="text-xl"
+                onClick={()=>popupStack.closePopups(1)}
+              >
+                <span>X</span>{' '}
+                <span className="sr-only">close</span>
+              </button>
+            </div>
           </div>
           <div className="m-5 w-full space-y-2 flex-wrap">
             {
