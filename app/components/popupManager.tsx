@@ -2,7 +2,7 @@ import React from 'react'
 // import Dialog from '@reach/dialog'
 import { DialogOverlay, DialogContent } from '@reach/dialog';
 
-import ProductDetails from './productDetailsContent';
+import ProductDetails from './ContentProductDetails';
 import ProductEdit from './productEditContent';
 import { usePopupStateReturnInterface } from '../hooks/usePopupState'
 import { users } from '../hooks/useUser'
@@ -33,7 +33,7 @@ const PopupManager = ({user, allProducts, exchangeRates, popupStack, updateProdu
     <DialogOverlay
       isOpen={!!popupStack.currentValue}
     >
-      <div className="max-h-screen bg-mainbg box-border mt-20 m-10 z-50">
+      <div className="h-full bg-mainbg box-border mt-32 xsm:mt-20 m-10 z-50">
         {
           !currentValue
           ? (undefined)

@@ -7,7 +7,7 @@ interface OverlayProps {
 }
 
 const Overlay = ({BgElement, children, ...props}:OverlayProps) => (
-  <div className={`relative ${props.className}`}>
+  <div className={"relative " + props.className + " overflow-hidden rounded-t-lg"}>
     <div className="absolute w-full bg-cardbg">
       {BgElement}
     </div>
