@@ -3,6 +3,7 @@ import { findExchangeRate, findProductByID, users } from '../helpers/index'
 import ProductList from './productList'
 import ProductListItem from './productListItem'
 import Overlay from './overlay'
+import Button from './button'
 
 import {usePopupStateReturnInterface} from '../hooks/usePopupState'
 import {productInterface} from '../hooks/getAllProducts'
@@ -41,9 +42,13 @@ const ProductDetails = ({id, popupStack, user, allProducts, exchangeRates}:Produ
           <div className="flex justify-between">
             <h2 className="m-2 text-xl">{name}</h2>
             <div className="space-x-3 flex">
-              {
-                user === 'admin' && <button onClick={()=>popupStack.openProductEdit(allProducts, id, user)}>Edit</button> as ReactElement
-              }
+            <Button
+              onClick={()=>user === 'admin' && popupStack.openProductEdit(allProducts, id, user)}
+              className={user === 'admin' ? 'my-2' :'my-2 bg-disabled'}
+              tooltip={user === 'admin' ? undefined : 'Login To Enable Editing'}
+            >
+              Edit
+            </Button>
               <button
                 className="text-xl"
                 onClick={()=>popupStack.closePopups(1)}
