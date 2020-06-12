@@ -1,9 +1,8 @@
 import React, { ReactElement } from 'react';
 import { findExchangeRate, findProductByID, users } from '../helpers/index'
-import ProductList from './productList'
 import ProductListItem from './productListItem'
 import Overlay from './overlay'
-import Button from './button'
+import DialogMenu from './dialogMenu'
 
 import {usePopupStateReturnInterface} from '../hooks/usePopupState'
 import {productInterface} from '../hooks/getAllProducts'
@@ -38,41 +37,7 @@ const ProductDetails = ({id, popupStack, user, allProducts, exchangeRates}:Produ
           </div>
         }
       >
-        <div className="flex flex-col justify-between">
-          <div className="flex justify-between">
-            <h2 className="m-2 text-xl">{name}</h2>
-            <div className="space-x-3 flex">
-            <Button
-              onClick={()=>user === 'admin' && popupStack.openProductEdit(allProducts, id, user)}
-              className={user === 'admin' ? 'my-2' :'my-2 bg-disabled'}
-              tooltip={user === 'admin' ? undefined : 'Login To Enable Editing'}
-            >
-              Edit
-            </Button>
-              <button
-                className="text-xl"
-                onClick={()=>popupStack.closePopups(1)}
-              >
-                <span>X</span>{' '}
-                <span className="sr-only">close</span>
-              </button>
-            </div>
-          </div>
-          <div className="m-5 w-full space-y-2 flex-wrap">
-            {
-              popupStack.wholeStack
-              .filter((value, i, list) => i !== list.length - 1)
-              .map((value, i, list) => (
-                <>
-                  <span
-                    onClick={()=>popupStack.closePopups(list.length - i)}
-                    className="bg-cardbg hover:text-light">{findProductByID(value.id, allProducts).name} /
-                  </span>{' '}
-                </>
-              ))
-            }
-          </div>
-        </div>
+        <DialogMenu id={id} user={user} allProducts={allProducts} popupState={popupStack} />
       </Overlay>
       <div className="p-2 flex w-full justify-between">
         <div className="font-bold">
