@@ -58,7 +58,16 @@ function ProductListItem ({
                 }
                 {
                   showEditButton
-                  ? (<Button className="box-border mb-1 mx-2" disabled={user !== 'admin'} onClick={()=>openProductEdit(allProducts,id, user)}>Edit</Button>)
+                  ? (
+                    <Button
+                      className="box-border mb-1 mx-2"
+                      disabled={user !== 'admin'}
+                      onClick={()=>openProductEdit(allProducts,id, user)}
+                      tooltip={user === 'user' && 'Sign In to edit' || undefined}
+                    >
+                      Edit
+                    </Button>
+                    )
                   : undefined
                 }
               </div>
