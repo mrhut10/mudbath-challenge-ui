@@ -1,15 +1,12 @@
 import React from 'react'
-// import Dialog from '@reach/dialog'
-import { DialogOverlay, DialogContent } from '@reach/dialog';
-
-import ProductDetails from './ContentProductDetails';
-import ProductEdit from './productEditContent';
+import '@reach/dialog/styles.css'
+import { DialogOverlay } from '@reach/dialog';
+import ProductDetails from './DialogContentDetails';
+import ProductEdit from './DialogContentEdit';
 import { usePopupStateReturnInterface } from '../hooks/usePopupState'
 import { users } from '../hooks/useUser'
 import { productInterface } from '../hooks/getAllProducts'
 import { currencyStateInterface } from '../hooks/getAllCurrencies'
-
-import '@reach/dialog/styles.css'
 
 interface PopupManagerProps {
   popupStack: usePopupStateReturnInterface
@@ -38,9 +35,9 @@ const PopupManager = ({user, allProducts, exchangeRates, popupStack, updateProdu
           !currentValue
           ? (undefined)
           : (
-            currentValue.type === 'productDetail'
-            ? <ProductDetails id={currentValue.id} user={user} allProducts={allProducts} exchangeRates={exchangeRates} popupStack={popupStack} />
-            : <ProductEdit id={currentValue.id} user={user} allProducts={allProducts} exchangeRates={exchangeRates} popupStack={popupStack} />
+            currentValue.type === 'productEdit'
+            ? <ProductEdit id={currentValue.id} user={user} allProducts={allProducts} exchangeRates={exchangeRates} popupStack={popupStack} />
+            : <ProductDetails id={currentValue.id} user={user} allProducts={allProducts} exchangeRates={exchangeRates} popupStack={popupStack} />
           )
         }
       </div>

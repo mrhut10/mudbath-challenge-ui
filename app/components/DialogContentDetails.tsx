@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react';
-import { findExchangeRate, findProductByID, users } from '../helpers/index'
-import ProductListItem from './productListItem'
+import { findProductByID } from '../helpers/index'
 import Overlay from './overlay'
 import DialogMenu from './dialogMenu'
 import ProductDetails from './productDetails'
@@ -8,6 +7,7 @@ import ProductDetails from './productDetails'
 import {usePopupStateReturnInterface} from '../hooks/usePopupState'
 import {productInterface} from '../hooks/getAllProducts'
 import {currencyStateInterface} from '../hooks/getAllCurrencies'
+import { users } from '../hooks/useUser'
 
 
 interface ContentProductDetailsProps {
@@ -19,10 +19,7 @@ interface ContentProductDetailsProps {
 }
 
 const ContentProductDetails = ({id, popupStack, user, allProducts, exchangeRates}:ContentProductDetailsProps) => {
-  const selectedCurrency = exchangeRates.selectedKey;
-  const {name, description, price, relatedProducts, photo} = findProductByID(id, allProducts);
-  const exRate = findExchangeRate(price.base, selectedCurrency, exchangeRates);
-  const priceInLocal = exRate ? (exRate * price.amount).toFixed(2) : undefined;
+  const {name, photo} = findProductByID(id, allProducts)
 
   return (
     <>
@@ -35,6 +32,7 @@ const ContentProductDetails = ({id, popupStack, user, allProducts, exchangeRates
               backgroundImage:
                 `linear-gradient(to bottom, rgba(255,255,255,1) 33%,rgba(255,255,255,0) 100%), url('${photo}')`
             }}>
+              <div className="m-3 font-bold text-dark text-xl"><span className="border-b-2 border-dotted border-light">{name}</span></div>
           </div>
         }
       >
