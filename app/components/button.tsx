@@ -1,4 +1,4 @@
-import React, {ReactNode, MouseEventHandler, useState} from 'react'
+import React, {ReactNode, MouseEventHandler, useState, ReactElement} from 'react'
 import Tooltip from './tooltip'
 
 interface ButtonProps {
@@ -10,30 +10,25 @@ interface ButtonProps {
 }
 
 const Button = ({children, onClick, disabled, className:CN, tooltip}: ButtonProps) => {
+
+  const WithoutTooltip = ({children}):ReactElement => (
+    <button
+      className={
+        "rounded-lg py-px px-2 border-2 border-buttonbord hover:border-light " +
+          (!disabled ? 'bg-buttonbg ' : 'bg-disabled text-cardbg ') + CN
+      }
+      onClick={onClick}
+      type="button"
+      disabled={disabled}
+    >
+      {children}
+    </button>
+  )
   
   return (
-    tooltip
-    ? (
-      <Tooltip placement="bottom" trigger="hover" tooltip={tooltip} hideArrow={false}>
-        <button
-          className={`rounded-lg ${!disabled ? 'bg-buttonbg' : 'bg-disabled text-cardbg'} py-px px-2 border-2 border-buttonbord hover:border-light ` + CN}
-          onClick={onClick}
-          type="button"
-          disabled={disabled}
-        >
-          {children}
-        </button>
-      </Tooltip>
-    ) : (
-      <button
-        className={`rounded-lg ${!disabled ? 'bg-buttonbg' : 'bg-disabled text-cardbg'} py-px px-2 border-2 border-buttonbord hover:border-light ` + CN}
-        onClick={onClick}
-        type="button"
-        disabled={disabled}
-      >
-        {children}
-      </button>
-    )
+    <Tooltip placement="bottom-end" trigger={tooltip ? 'hover' : 'none'} tooltip={tooltip} hideArrow={false}>
+        <WithoutTooltip>{children}</WithoutTooltip>
+    </Tooltip>
   )
 }
 
