@@ -35,10 +35,10 @@ function ProductListItem ({
       <Card>
           <div className="w-full overflow-hidden flex">
             <img className="flex-row-reverse flex-shrink-1" src={photo} width="150" height="150"/>
-            <div className="flex-shrink flex-grow p-8 flex flex-wrap justify-between">
+            <div className="flex-shrink flex-grow p-8 flex flex-wrap justify-between items-start">
               {/*Title Price and Buttons */}
-              <div className="space-x-2 mr-12">
-                <h3 className="font-bold text-dark">{name}</h3>
+              <div className="mr-12 mb-4">
+                <h3 className="font-bold text-dark mb-3">{name}</h3>
                   {
                     !exRate
                     ? ("LOADING")
@@ -50,17 +50,17 @@ function ProductListItem ({
                     )
                   }
               </div>
-              <div className="box-border flex justify-evenly flex-wrap h-10 p-2 m-2">
+              <div className="box-border flex justify-between flex-wrap h-10">
                 {
                   showDetailsButton
-                  ? (<Button className="box-border mb-1 mx-2" onClick={()=>openProductDetails(allProducts,id)}>Details</Button>)
+                  ? (<Button className="" onClick={()=>openProductDetails(allProducts,id)}>Details</Button>)
                   : undefined
                 }
                 {
                   showEditButton
                   ? (
                     <Button
-                      className="box-border mb-1 mx-2"
+                      className=""
                       disabled={user !== 'admin'}
                       onClick={()=>openProductEdit(allProducts,id, user)}
                       tooltip={user === 'user' && 'Sign In to edit' || undefined}
