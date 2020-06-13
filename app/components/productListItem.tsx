@@ -33,11 +33,15 @@ function ProductListItem ({
   return (
     <li className="w-full p-5">
       <Card>
-          <div className="w-full overflow-hidden flex">
-            <img className="flex-row-reverse flex-shrink-1" src={photo} width="150" height="150"/>
+          <div className="w-full overflow-hidden flex justify-evenly p-2 flex-wrap xsm:flex-no-wrap">
+            <div className="flex items-center w-40 h-40">{/*this will center image V */}
+              <div className="flex rounded-lg w-full bg-mainbg p-2">
+                <img className="w-full h-auto object-cover rounded-lg" src={photo} />
+              </div>
+            </div>
             <div className="flex-shrink flex-grow p-8 flex flex-wrap justify-between items-start">
               {/*Title Price and Buttons */}
-              <div className="mr-12 mb-4">
+              <div className="mr-8 mb-4">
                 <h3 className="font-bold text-dark mb-3">{name}</h3>
                   {
                     !exRate
@@ -50,17 +54,16 @@ function ProductListItem ({
                     )
                   }
               </div>
-              <div className="box-border flex justify-between flex-wrap h-10">
+              <div className="box-border flex justify-between flex-wrap h-10 w-32">
                 {
                   showDetailsButton
-                  ? (<Button className="" onClick={()=>openProductDetails(allProducts,id)}>Details</Button>)
+                  ? (<Button onClick={()=>openProductDetails(allProducts,id)}>Details</Button>)
                   : undefined
                 }
                 {
                   showEditButton
                   ? (
                     <Button
-                      className=""
                       disabled={user !== 'admin'}
                       onClick={()=>openProductEdit(allProducts,id, user)}
                       tooltip={user === 'user' && 'Sign In to edit' || undefined}

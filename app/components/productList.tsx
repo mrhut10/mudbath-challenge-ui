@@ -23,19 +23,7 @@ const ProductList = ({children, selectedKeys=[], toogleChild=undefined}:ProductL
             className="w-full"
             onClick={onClickHandler}
           >
-            {
-              !!onClickHandler
-              ? (
-                  <>
-                    <Selectable
-                      checked={
-                        selectedKeys && !!selectedKeys.find(key => key == Number(childKey))
-                      }
-                    />
-                    {child}
-                  </>
-              ) : (child)
-            }
+            {child}
           </div>
         </div>
       )
