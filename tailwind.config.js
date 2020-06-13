@@ -1,4 +1,7 @@
 const tailwindcssTextShadow = require('tailwindcss-textshadow')
+const defaultTheme = require('tailwindcss/defaultTheme')
+
+
 module.exports = {
   plugins: [
     tailwindcssTextShadow
@@ -15,6 +18,10 @@ module.exports = {
       'xl': '1280px',
     },
     extend: {
+      fontFamily: {
+        'sans': ["Roboto", ...defaultTheme.fontFamily.sans],
+        'logo': ["Fira Code"]
+      },
       colors: {
         'mainbg': '#D3D9DC',
         'cardbg': '#EBEBEB',

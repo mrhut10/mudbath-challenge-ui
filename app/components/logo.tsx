@@ -5,7 +5,7 @@ interface LogoProps {
 }
 
 const XYZ = ():ReactElement => (
-  <span className="relative text-3xl font-hairline w-8">
+  <span className="relative text-3xl font-mono font-hairline w-8">
     <span className="absolute" style={{left:'0px'}}>X</span>
     <span className="absolute" style={{left:'10px'}}>Y</span>
     <span className="absolute" style={{left:'20px'}}>Z</span>
