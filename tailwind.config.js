@@ -1,5 +1,6 @@
 const tailwindcssTextShadow = require('tailwindcss-textshadow')
 const defaultTheme = require('tailwindcss/defaultTheme')
+const tailwindcssAspectRatio = require('tailwindcss-aspect-ratio');
 
 
 module.exports = {
@@ -18,6 +19,9 @@ module.exports = {
       'xl': '1280px',
     },
     extend: {
+      aspectRatio: {
+        square: [1, 1],
+      },
       fontFamily: {
         'sans': ["Roboto", ...defaultTheme.fontFamily.sans],
         'logo': ["Fira Code"]
