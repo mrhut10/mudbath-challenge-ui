@@ -26,6 +26,7 @@ const DialogMenu = ({id, user, allProducts, popupState, showEdit=true}:DialogMen
               onClick={()=>user === 'admin' && popupState.openProductEdit(allProducts, id, user)}
               className={user === 'admin' ? 'my-2' :'my-2 bg-disabled'}
               tooltip={user === 'admin' ? undefined : 'Login To Enable Editing'}
+              disabled={user === 'user'}
             >
               Edit
             </Button>
