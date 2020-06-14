@@ -4,34 +4,24 @@ interface TextValidators {
   [key: string]: (failMessage:string, ...input : any[]) => validationTest
 }
 
-const validators : TextValidators = {
-  isNumberMaxValue: (failMessage, maxVal: number) => (text: string) => text && typeof text === 'string' && /\d*(\.)?\d*/.test(text) && Number(text) <= maxVal ? [true, ''] : [false, failMessage],
-  isInteger: (failMessage) => (text:string) => text && typeof text === 'string' && /\d+/.test(text) ? [true, ''] : [false, failMessage],
-  isUnquie: (failMessage, takenValues:(string)[]) => (text:string) => text && typeof text === 'string' && !takenValues.includes(text) ? [true, ''] : [false, failMessage]
-}
-
 class TextValidator {
   rules:validationTest[]
   constructor (){
     this.rules = []
   }
-  isString(){
-    this.rules.push(validators.isString())
-    return this
-  }
-  required(failMessage='Value required'){
+  required(failMessage:string='Value required'){
     this.rules.push(
       (text:string) => text && typeof text === 'string' && text.length > 0 ? [true, ''] : [false, failMessage],
     )
     return this
   }
-  minLength(failMessage='Value to short', minLen: number){
+  minLength(failMessage:string='Value to short', minLen: number){
     this.rules.push(
       (text:string) => text && typeof text === 'string' && text.length >= minLen ? [true, ''] : [false, failMessage],
     )
     return this
   }
-  maxLength(failMessage='Value to long', maxLen: number){
+  maxLength(failMessage:string='Value to long', maxLen: number){
     this.rules.push(
       (text:string) => text && typeof text === 'string' && text.length <= maxLen ? [true, ''] : [false, failMessage],
     )
@@ -43,22 +33,34 @@ class TextValidator {
     )
     return this
   }
-  isNumberMinValue(failMessage, minVal: number){
+  isNumberMinValue(failMessage:string, minVal: number){
     this.rules.push(
       (text: string) => text && typeof text === 'string' && /\d*(\.)?\d*/.test(text) && Number(text) >= minVal ? [true, ''] : [false, failMessage],
     )
     return this
   }
-  isNumberMaxValue(maxVal:number){
-    this.rules.push(validators.isNumberMaxValue(maxVal))
+  isNumberMaxValue(failMessage:string, maxVal: number){
+    this.rules.push(
+      (text: string) => text && typeof text === 'string' && /\d*(\.)?\d*/.test(text) && Number(text) <= maxVal ? [true, ''] : [false, failMessage],
+    )
     return this
   }
-  isInteger(){
-    this.rules.push(validators.isInteger())
+  isInteger(failMessage:string){
+    this.rules.push(
+      (text:string) => text && typeof text === 'string' && /\d+/.test(text) && Number.isInteger(Number(text)) ? [true, ''] : [false, failMessage],
+    )
     return this
   }
-  isUnquie(takenValues:(string|number)[]){
-    this.rules.push(validators.isUnquie(takenValues))
+  isUnquie(failMessage:string, takenValues:string[]){
+    this.rules.push(
+      (text:string) => text && typeof text === 'string' && !takenValues.includes(text) ? [true, ''] : [false, failMessage]
+    )
+    return this
+  }
+  oneOf(failMessage:string, values:string[]){
+    this.rules.push(
+      (text:string) => text && typeof text === 'string' && values.includes(text) ? [true, ''] : [false, failMessage]
+    )
     return this
   }
   validate(text:string):[boolean, string]{
