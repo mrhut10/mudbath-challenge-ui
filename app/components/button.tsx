@@ -1,15 +1,13 @@
-import React, {ReactNode, MouseEventHandler, useState, ReactElement} from 'react'
+import React, {ReactNode, MouseEventHandler, ReactElement, ButtonHTMLAttributes, HTMLAttributes } from 'react'
 import Tooltip from './tooltip'
 
-interface ButtonProps {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode,
-  onClick?: MouseEventHandler<HTMLButtonElement>
-  disabled?: boolean
-  className?: string
   tooltip?: ReactNode
 }
 
-const Button = ({children, onClick, disabled, className:CN, tooltip}: ButtonProps) => {
+
+const Button = ({children, onClick, className:CN, tooltip, disabled=false, type="button", ...props}: ButtonProps) => {
 
   const WithoutTooltip = ({children}):ReactElement => (
     <button
@@ -18,8 +16,8 @@ const Button = ({children, onClick, disabled, className:CN, tooltip}: ButtonProp
           (!disabled ? 'bg-buttonbg ' : 'bg-disabled text-cardbg ') + CN
       }
       onClick={onClick}
-      type="button"
-      disabled={disabled}
+      type={type}
+      {...props}
     >
       {children}
     </button>
