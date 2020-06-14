@@ -11,7 +11,7 @@ import Layout from './components/layout';
 import MenuItems from './components/MenuItems';
 import ProductList from './components/productList';
 import ProductListItem from './components/productListItem';
-import PopupManager from './components/popupManager';
+import DialogManager from './components/dialogManager';
 
 const App = () => {
 
@@ -37,7 +37,7 @@ const App = () => {
           ))
         }
       </ProductList>
-      <PopupManager
+      <DialogManager
         popupStack={popupStack}
         user={user}
         allProducts={allProducts.data}
