@@ -98,6 +98,8 @@ const ProductForm = ({id, allProducts, currencies,  saveProductByKey}:ProductFor
       key,
       fieldData[key].validator.validate(fieldData[key].value)
   ])
+  const ValidationErrors: [string, [boolean, string]][] = ValidationResults.filter(item => item[1][0] !== true)
+
   return (
     <form className="p-4 w-full">
       {/* ID Field */}
@@ -183,8 +185,16 @@ const ProductForm = ({id, allProducts, currencies,  saveProductByKey}:ProductFor
             className=" appearance-none w-full"
           />
       </TooltipValidation>
-      <Button
+        {
+          ValidationErrors.length > 0 &&
+          <div className="bg-red-200 rounded-lg border-b-2 border-red-400 flex justify-evenly m-3">
+            Please Correct Field Validation Errors
+          </div>
+        }
+        <Button
+        className=" m-y-4"
         type="submit"
+        disabled={ValidationErrors.length > 0}
       >
         Save
       </Button>
