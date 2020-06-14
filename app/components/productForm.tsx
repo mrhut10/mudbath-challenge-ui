@@ -76,23 +76,6 @@ const ProductForm = ({id, allProducts, currencies,  saveProductByKey}:ProductFor
     },
   }
   const [fieldData, setFieldData] = useState<fieldsDescriptor>(resetData)
-
-
-  const handleChange = (fieldName: string) => (e) => {
-    const input = e.target
-    if (Object.keys(fieldData).includes(fieldName)){
-      console.log(input.value)
-      const newFieldData = {...fieldData}
-      newFieldData[fieldName] = {
-        ...newFieldData[fieldName],
-        value: input.value
-      }
-      setFieldData(newFieldData)
-    }
-    
-    //const invaliedFields = ValidationResults.filter(item => item[0])
-    
-  }
   const ValidationResults: [string, [boolean, string]][] = Object.keys(fieldData)
     .map((key) => [
       key,
@@ -100,32 +83,47 @@ const ProductForm = ({id, allProducts, currencies,  saveProductByKey}:ProductFor
   ])
   const ValidationErrors: [string, [boolean, string]][] = ValidationResults.filter(item => item[1][0] !== true)
 
-  return (
-    <form className="p-4 w-full" onSubmit={(e) => {
-      e.preventDefault
-      if (ValidationErrors.length > 0){
-        // don't submit
-      } else {
-        const newData = Object
-          .keys(fieldData)
-          .reduce<Partial<productInterface>>(
-            (acc, next) => {
-              const field = fieldData[next]
-              let returnData = {...acc}
-              if (next==='priceAmount'){
-                returnData.price = {...returnData.price, amount: Number(field.value)}
-              } else if (next === 'priceBase'){
-                returnData.price = {...returnData.price,base: field.value}
-              } else {
-                returnData[next] = field.value
-              }
-              return returnData
-            },
-            {}
-          ) as productInterface
-        saveProductByKey(id, newData)
+
+  const handleChange = (fieldName: string) => (e) => {
+    const input = e.target
+    if (Object.keys(fieldData).includes(fieldName)){
+      const newFieldData = {...fieldData}
+      newFieldData[fieldName] = {
+        ...newFieldData[fieldName],
+        value: input.value
       }
-    }}>
+      setFieldData(newFieldData)
+    } 
+  }
+
+  const handleSave = (e) => {
+    e.preventDefault()
+    if (ValidationErrors.length > 0){
+      // don't submit
+    } else {
+      const newData = Object
+        .keys(fieldData)
+        .reduce<Partial<productInterface>>(
+          (acc, next) => {
+            const field = fieldData[next]
+            let returnData = {...acc}
+            if (next==='priceAmount'){
+              returnData.price = {...returnData.price, amount: Number(field.value)}
+            } else if (next === 'priceBase'){
+              returnData.price = {...returnData.price,base: field.value}
+            } else {
+              returnData[next] = field.value
+            }
+            return returnData
+          },
+          {}
+        )
+      saveProductByKey(id, {...product, ...newData})
+    }
+  }
+  
+  return (
+    <form className="p-4 w-full">
       {/* ID Field */}
       <TooltipValidation
         labelMessage={({id:'id', message: 'ID'})}
@@ -219,6 +217,7 @@ const ProductForm = ({id, allProducts, currencies,  saveProductByKey}:ProductFor
         className=" m-y-4"
         type="submit"
         disabled={ValidationErrors.length > 0}
+        onClick={handleSave}
       >
         Save
       </Button>
