@@ -13,7 +13,7 @@ interface PopupManagerProps {
   user: users
   allProducts: productInterface[],
   exchangeRates: currencyStateInterface,
-  updateProductById?: (user: users, id: productInterface["id"], updatedFields: Partial<productInterface>) => void
+  updateProductById?: (user: users, id: productInterface["id"], updatedFields: productInterface) => void
 }
 
 const PopupManager = ({user, allProducts, exchangeRates, popupStack, updateProductById}:PopupManagerProps) => {
@@ -36,7 +36,7 @@ const PopupManager = ({user, allProducts, exchangeRates, popupStack, updateProdu
           ? (undefined)
           : (
             currentValue.type === 'productEdit'
-            ? <ProductEdit id={currentValue.id} user={user} allProducts={allProducts} exchangeRates={exchangeRates} popupStack={popupStack} />
+            ? <ProductEdit id={currentValue.id} user={user} allProducts={allProducts} exchangeRates={exchangeRates} popupStack={popupStack} updateProductById={updateProductById}/>
             : <ProductDetails id={currentValue.id} user={user} allProducts={allProducts} exchangeRates={exchangeRates} popupStack={popupStack} />
           )
         }

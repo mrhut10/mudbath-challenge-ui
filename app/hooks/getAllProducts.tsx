@@ -41,7 +41,6 @@ const getAllProducts = () => {
     if (user !== "admin"){
       throw new Error("must be admin to update Product")
     }
-    
     updateItemByKey(keyValue, newDefinition);
   }
   return {allProducts, selectItemByKey, updateProductByKey};

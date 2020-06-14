@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom'
 import 'regenerator-runtime/runtime'
 // state imports
-import useUser from './hooks/useUser';
+import useUser, {users} from './hooks/useUser';
 import getAllCurrencies from './hooks/getAllCurrencies';
 import getAllProducts from './hooks/getAllProducts'
 import usePopupState from './hooks/usePopupState'
@@ -42,6 +42,9 @@ const App = () => {
         user={user}
         allProducts={allProducts.data}
         exchangeRates={allCurrencies}
+        updateProductById={(user:users, id:number, data) => {
+          updateProductByKey(id, data, user)
+        }}
         
       />
     </Layout>

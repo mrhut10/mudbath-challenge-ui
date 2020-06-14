@@ -51,7 +51,7 @@ function getJSONFileData<T, K extends keyof T>(path:string, name:string, keyName
 
     return setSateValue({
       ...stateValue,
-      data: stateValue.data.map((item, index) => index === oldItemIndex ? newItem : oldItem)
+      data: stateValue.data.map((item, index) => index === oldItemIndex ? newItem : item)
     })
   }
 
