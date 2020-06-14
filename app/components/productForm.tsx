@@ -1,18 +1,91 @@
-import React from 'react'
+import React, {useState} from 'react'
 import TextValidator from '../helpers/textValidator'
-import { users } from 'hooks/useUser'
-import { productInterface } from 'hooks/getAllProducts'
-import { currencyStateInterface } from 'hooks/getAllCurrencies'
-import { usePopupStateReturnInterface } from 'hooks/usePopupState'
+import { findProductByID } from '../helpers/index'
+import Button from './button'
+import TooltipValidation from './TooltipValidation'
+import { productInterface } from '../hooks/getAllProducts'
+import { currencyStateInterface } from '../hooks/getAllCurrencies'
+import { usePopupStateReturnInterface } from '../hooks/usePopupState'
+import { users } from '../hooks/useUser'
+
 
 interface ProductFormProps {
   id: number
   allProducts: productInterface[]
   currencies: currencyStateInterface
-  user: users
+  saveProductByKey: (id: number, data: productInterface)=>void
+}
+interface fieldsDescriptor {
+  [key: string]: {
+    validator: TextValidator,
+    value: string
+    }
 }
 
-const ProductForm = ({}) => {
+
+const ProductForm = ({id, allProducts, currencies,  saveProductByKey}:ProductFormProps) => {
+  const product = findProductByID(id, allProducts)
+  const [fieldData, setFieldData] = useState<fieldsDescriptor>({
+    id: {
+      validator: new TextValidator().isNumber().isUnquie(
+        allProducts.map(product => String(product.id)).filter(item => item !== String(id))
+      ),
+       //.isNumber().isUnquie(allProducts.map(product => product.id).filter(item => item !== id))
+      value: String(product.id)
+    },
+    name: {
+      validator: new TextValidator().required().isString().minLength(2),
+      value: product.name
+    },
+    description: {
+      validator: new TextValidator().required().isString().minLength(2),
+      value: product.description
+    },
+    priceBase: {
+      validator: new TextValidator().required().isString().minLength(3).maxLength(3),
+      value: product.price.base,
+    },
+    priceAmount: {
+      validator: new TextValidator().required().isNumber().isNumberMinValue(0),
+      value: String(product.price.amount)
+    },
+
+  })
+
+
+  const handleChange = (fieldName: string) => (e) => {
+    const input = e.target
+    if (Object.keys(fieldData).includes(fieldName)){
+      console.log(input.value)
+      const newFieldData = {...fieldData}
+      newFieldData[fieldName] = {
+        ...newFieldData[fieldName],
+        value: input.value
+      }
+      setFieldData(newFieldData)
+    }
+    
+  }
+  return (
+    <form className="p-4">
+      <label htmlFor="id">ID</label>
+      <TooltipValidation
+        labelMessage={({id:'id', message: 'ID'})}
+        NotValidMessage={fieldData.id.validator.validate(fieldData.id.value)[1]}
+        TooltipMessage="must be a unquie integer"
+      >
+        <input
+          id="id"
+          type="number"
+          step="1"
+          onChange={handleChange('id')}
+          defaultValue={fieldData.id.value}
+          className={fieldData.id.validator.validate(fieldData.id.value)[0] ? 'bg-mainbg' : 'bg-red-200'}
+        />
+      </TooltipValidation>
+      <Button type="submit">Save</Button>
+    </form>
+  )
   /*
     return (
     <form className="flex flex-wrap" onSubmit={handleSubmit}>

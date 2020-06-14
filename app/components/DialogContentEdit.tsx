@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import DialogMenu from './dialogMenu'
+import ProductForm from './productForm'
 
-import { findExchangeRate, findProductByID } from '../helpers'
+import { findExchangeRate, findProductByID } from '../helpers/index'
 import {usePopupStateReturnInterface } from '../hooks/usePopupState'
 import { users } from '../hooks/useUser'
 import { productInterface } from '../hooks/getAllProducts'
@@ -21,6 +22,9 @@ const ProductEdit = ({id, popupStack, user, allProducts, exchangeRates}:ProductE
   const {name, description, price, relatedProducts} = findProductByID(id, allProducts);
   const exRate = selectedCurrency ? findExchangeRate(price.base, selectedCurrency, exchangeRates) : undefined;
   const localCurrency = exRate ? exRate * price.amount : undefined
+
+  // should not be here if your not logged in as admin therefore
+  if (user !== 'admin') popupStack.closePopups(1)
 
   // tracked fields in UI
   const [trackedFields, setTrackedFields] = useState({
@@ -60,6 +64,7 @@ const ProductEdit = ({id, popupStack, user, allProducts, exchangeRates}:ProductE
   return (
     <>
       <DialogMenu id={id} user={user} allProducts={allProducts} popupState={popupStack} showEdit={false}/>
+      <ProductForm id={id} allProducts={allProducts} currencies={exchangeRates} saveProductByKey={console.log}/>
     </>
   )
 }
