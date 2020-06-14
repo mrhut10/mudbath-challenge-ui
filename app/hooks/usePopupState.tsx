@@ -1,6 +1,6 @@
 import React from 'react'
 import useStack, { useStackReturnInterface } from './useStack'
-import { users } from '../helpers/index'
+import { users, clampNumber } from '../helpers/index'
 import { productInterface } from './getAllProducts'
 
 interface PopupItemInterface {
@@ -15,7 +15,7 @@ export interface usePopupStateReturnInterface {
     openProductDetails: (allProducts:productInterface[], id:productInterface["id"]) => void | Error
     openProductEdit: (allProducts:productInterface[], id:productInterface["id"], user:users) => void | Error
     closePopups: (count:number)=>void
-    danerousProductIDChange: (user: users, oldID: productInterface["id"], newID:productInterface["id"]) => void | Error
+    danerousProductIDChangeAndCloseWindow: (user: users, oldID: productInterface["id"], newID:productInterface["id"]) => void | Error
     wholeStack: PopupItemInterface[],
 }
 
@@ -40,7 +40,7 @@ const openProductEdit = ({allValues, addValue}:PopupJSONStateInterface) => (allP
 }
 
 const closePopups = ({removeValues}:PopupJSONStateInterface) => removeValues;
-const danerousProductIDChange = ({allValues, dangerSetValues}:PopupJSONStateInterface) => (user: users, oldID: PopupItemInterface["id"], newID:PopupItemInterface["id"]) => {
+const danerousProductIDChangeAndCloseWindow = ({allValues, dangerSetValues}:PopupJSONStateInterface) => (user: users, oldID: PopupItemInterface["id"], newID:PopupItemInterface["id"]) => {
   if (user !== 'admin'){
     throw new Error("only admin can change ID's in stack")
     return;
@@ -51,8 +51,8 @@ const danerousProductIDChange = ({allValues, dangerSetValues}:PopupJSONStateInte
     return;
   }
 
-  return dangerSetValues(
-    allValues.map(
+  dangerSetValues(
+    allValues.slice(0, clampNumber(0, allValues.length-1)(allValues.length-2)).map(
       value =>
         value.type === 'productDetail' || value.type === 'productEdit'
         ? {...value, id: newID}
@@ -70,7 +70,7 @@ function usePopupState():usePopupStateReturnInterface{
     openProductDetails: openProductDetails(StackState),
     openProductEdit: openProductEdit(StackState),
     closePopups: closePopups(StackState),
-    danerousProductIDChange: danerousProductIDChange(StackState),
+    danerousProductIDChangeAndCloseWindow: danerousProductIDChangeAndCloseWindow(StackState),
     wholeStack: allValues,
   }
 }

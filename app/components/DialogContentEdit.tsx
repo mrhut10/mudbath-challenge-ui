@@ -23,16 +23,17 @@ const ProductEdit = ({id, popupStack, user, allProducts, exchangeRates, updatePr
   if (user !== 'admin') popupStack.closePopups(1)
 
   const handleProductSave = (id: productInterface["id"], product:productInterface) => {
-    // save product
-    updateProductById(user, id, product)
     
     // update navigational stack for change in product id's
     if (id !== product.id){
-      popupStack.danerousProductIDChange(user, id, product.id)
+      popupStack.danerousProductIDChangeAndCloseWindow(user, id, product.id)
+    } else {
+      popupStack.closePopups(1)
     }
     
-    // close edit window
-    popupStack.closePopups(1)
+    // save product & should update ref to product in related items
+    updateProductById(user, id, product)
+
   }
     
   return (

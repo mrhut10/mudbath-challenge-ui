@@ -19,7 +19,7 @@ export interface productInterface {
 const products_file_url = '/products.json'
 
 const getAllProducts = () => {
-  const {stateValue:allProducts, selectItemByKey, updateItemByKey, danerouslySetAllValues} = getJSONFileData<productInterface, "id">(
+  const {stateValue:allProducts, selectItemByKey, danerouslySetAllValues} = getJSONFileData<productInterface, "id">(
     products_file_url,
     'products',
     "id"
@@ -41,7 +41,26 @@ const getAllProducts = () => {
     if (user !== "admin"){
       throw new Error("must be admin to update Product")
     }
-    updateItemByKey(keyValue, newDefinition);
+
+    const newState:productInterface[] = allProducts.data.map<productInterface>(product => {
+      if (product.id === keyValue){
+        // is the product thats changing
+        return ({...product, ...newDefinition})
+      }
+      
+      if (product.relatedProducts.includes(keyValue)){
+        // relates to changing product
+        return ({
+          ...product,
+          relatedProducts: product.relatedProducts.map(value => value === keyValue ? newDefinition.id : value)
+        })
+      }
+      
+      // unrelated product
+        return product
+    })
+    
+    danerouslySetAllValues({...allProducts, data: newState})
   }
   return {allProducts, selectItemByKey, updateProductByKey};
 }

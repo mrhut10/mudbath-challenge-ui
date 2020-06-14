@@ -22,7 +22,7 @@ const PopupManager = ({user, allProducts, exchangeRates, popupStack, updateProdu
     openProductDetails,
     openProductEdit,
     closePopups,
-    danerousProductIDChange,
+    danerousProductIDChangeAndCloseWindow,
     wholeStack,
   } = popupStack;
   

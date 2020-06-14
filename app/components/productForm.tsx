@@ -118,7 +118,8 @@ const ProductForm = ({id, allProducts, currencies,  saveProductByKey}:ProductFor
           },
           {}
         )
-      saveProductByKey(id, {...product, ...newData})
+        // save product
+        saveProductByKey(id, {...product, ...newData})
     }
   }
   

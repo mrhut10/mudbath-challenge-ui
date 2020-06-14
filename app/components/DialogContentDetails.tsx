@@ -19,7 +19,7 @@ interface ContentProductDetailsProps {
 }
 
 const ContentProductDetails = ({id, popupStack, user, allProducts, exchangeRates}:ContentProductDetailsProps) => {
-  const {name, photo} = findProductByID(id, allProducts)
+  const {name, photo} = findProductByID(id, allProducts) ?? {name: 'LOADING', photo: 'LOADING'}
 
   return (
     <>

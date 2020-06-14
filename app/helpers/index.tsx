@@ -8,6 +8,10 @@ export function findExchangeRate (base:string, target:string, exchangeRates:curr
     return undefined
   }
 
+  if (base === undefined || target === undefined){
+    return undefined
+  }
+
   if (base === target){
     // same currency
     return 1;

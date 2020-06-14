@@ -62,7 +62,7 @@ const App = () => {
         <button className="p-2 m-2 bg-blue-300" onClick={()=>popupState.openProductEdit(allProducts.data, 1, user)}>openEdit</button>
         <button className="p-2 m-2 bg-blue-300" onClick={()=>popupState.closePopups(1)}>close 1 position</button>
         <button className="p-2 m-2 bg-blue-300" onClick={()=>popupState.closePopups(3)}>close 3 position</button>
-        <button className="p-2 m-2 bg-blue-300" onClick={()=>popupState.danerousProductIDChange(user, 1, 2)}>rename id:1 to id:10 (work)</button>
+        <button className="p-2 m-2 bg-blue-300" onClick={()=>popupState.danerousProductIDChangeAndCloseWindow(user, 1, 2)}>rename id:1 to id:10 (work)</button>
       </div>
     </div>
   )
