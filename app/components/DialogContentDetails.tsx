@@ -32,7 +32,11 @@ const ContentProductDetails = ({id, popupStack, user, allProducts, exchangeRates
               backgroundImage:
                 `linear-gradient(to bottom, rgba(255,255,255,1) 33%,rgba(255,255,255,0) 100%), url('${photo}')`
             }}>
-              <div className="m-3 font-bold text-dark text-xl"><span className="border-b-2 border-dotted border-light">{name}</span></div>
+              <div className="m-3 font-bold text-dark text-xl">
+                <span className="border-b-2 border-dotted border-light">
+                  {name}
+                </span>
+              </div>
           </div>
         }
       >
