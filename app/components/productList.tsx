@@ -11,14 +11,14 @@ interface ProductListProps {
 const ProductList = ({children, selectedKeys=[], toogleChild=undefined}:ProductListProps) => {
   return (
   <ul className="flex flex-wrap justify-center -ml-10 p-10 md:p-5">
-    {children.map((child) => {
+    {children.map((child, i) => {
       const childKey = child.props.id
       const onClickHandler = !!toogleChild && typeof toogleChild === 'function'
         ? ()=> toogleChild(Number(childKey))
         : undefined
 
       return (
-        <div key={childKey} className="box-border w-full lg:w-1/2 max-w-2xl pl-10 relative">
+        <div key={i} className="box-border w-full lg:w-1/2 max-w-2xl pl-10 relative">
           <div
             className="w-full"
             onClick={onClickHandler}
