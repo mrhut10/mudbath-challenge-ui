@@ -5,16 +5,21 @@ interface TooltipValidationProps {
   TooltipMessage: string
   NotValidMessage: string
   labelMessage: {message:string, id:string}
-  children: ReactElement
+  children: ReactNode
+  className?: string,
 }
 
-const TooltipValidation = ({labelMessage, TooltipMessage, NotValidMessage, children}:TooltipValidationProps) => (
-  <div>
-    <label htmlFor={labelMessage.id}>{labelMessage.message}</label>
+const TooltipValidation = ({labelMessage, TooltipMessage, NotValidMessage, children, className: cn}:TooltipValidationProps) => (
+  <div className={"w-full "}>
+    <label htmlFor={labelMessage.id}>{labelMessage.message}</label><br/>
     <Tooltip hideArrow={false} trigger="hover" placement="bottom" tooltip={TooltipMessage}>
+    <div className={"bg-white rounded-lg border-2 border-medium " + cn}>
       {children}
+    </div>
     </Tooltip>
-    <span className={NotValidMessage ? 'visible' : 'invisible'}>{NotValidMessage}</span>
+    <div className={' w-full text-right h-4'}>
+      {NotValidMessage}
+    </div>
   </div>
 
 )
