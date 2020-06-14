@@ -101,7 +101,31 @@ const ProductForm = ({id, allProducts, currencies,  saveProductByKey}:ProductFor
   const ValidationErrors: [string, [boolean, string]][] = ValidationResults.filter(item => item[1][0] !== true)
 
   return (
-    <form className="p-4 w-full">
+    <form className="p-4 w-full" onSubmit={(e) => {
+      e.preventDefault
+      if (ValidationErrors.length > 0){
+        // don't submit
+      } else {
+        const newData = Object
+          .keys(fieldData)
+          .reduce<Partial<productInterface>>(
+            (acc, next) => {
+              const field = fieldData[next]
+              let returnData = {...acc}
+              if (next==='priceAmount'){
+                returnData.price = {...returnData.price, amount: Number(field.value)}
+              } else if (next === 'priceBase'){
+                returnData.price = {...returnData.price,base: field.value}
+              } else {
+                returnData[next] = field.value
+              }
+              return returnData
+            },
+            {}
+          ) as productInterface
+        saveProductByKey(id, newData)
+      }
+    }}>
       {/* ID Field */}
       <TooltipValidation
         labelMessage={({id:'id', message: 'ID'})}
