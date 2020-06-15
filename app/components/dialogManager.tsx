@@ -30,7 +30,7 @@ const PopupManager = ({user, allProducts, exchangeRates, popupStack, updateProdu
     <DialogOverlay
       isOpen={!!popupStack.currentValue}
     >
-      <div className="h-full max-w-3xl mx-auto bg-cardbg box-border mt-32 xsm:mt-20 m-10 z-50">
+      <div className="h-full max-w-3xl mx-auto bg-cardbg box-border mt-32 xsm:mt-20 m-10 z-50 h-auto">
         {
           !currentValue
           ? (undefined)
