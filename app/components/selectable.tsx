@@ -8,7 +8,7 @@ const Selectable = ({ checked }: selectableProps) => {
   return (
     <div className="relative w-full">
       {/*
-        make visually hidden but not to screenreader
+        make visually hidden but not to screen reader
         see https://tailwindcss.com/docs/screen-readers/#app
       */}
       <input

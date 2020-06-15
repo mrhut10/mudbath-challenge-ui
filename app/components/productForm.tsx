@@ -47,7 +47,7 @@ const ProductForm = ({
       .isInteger('ID must be a integer')
       .MinValue('ID must be positive number', 1)
       .isUnquie(
-        'ID is already Taken (must be unquie)',
+        'ID is already Taken (must be unique)',
         allProducts
           .filter((item) => item.id !== id)
           .map((item) => String(item.id)),
@@ -149,7 +149,7 @@ const ProductForm = ({
         NotValidMessage={
           ValidationResults.find((item) => item[0] === 'id')[1][1]
         }
-        TooltipMessage="unquie ID for product"
+        TooltipMessage="unique ID for product"
       >
         <Input
           id="id"

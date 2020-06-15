@@ -1,6 +1,6 @@
 import React from 'react'
-import '@reach/dialog/styles.css'
 import { DialogOverlay } from '@reach/dialog'
+import '@reach/dialog/styles.css'
 import ProductDetails from './dialogContentDetails'
 import ProductEdit from './dialogContentEdit'
 import { usePopupStateReturnInterface } from '../hooks/usePopupState'

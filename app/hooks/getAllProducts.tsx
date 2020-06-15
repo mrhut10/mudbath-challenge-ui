@@ -52,7 +52,7 @@ const getAllProducts = () => {
     const newState: productInterface[] = allProducts.data.map<productInterface>(
       (product) => {
         if (product.id === keyValue) {
-          // is the product thats changing
+          // is the product that's changing
           return { ...product, ...newDefinition }
         }
 
