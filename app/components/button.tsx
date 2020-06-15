@@ -15,7 +15,7 @@ const Button = ({children, onClick, className:CN, tooltip, disabled=false, type=
         "rounded-lg py-px px-2 border-2 border-buttonbord hover:border-light " +
           (!disabled ? 'bg-buttonbg ' : 'opacity-50 cursor-not-allowed ') + CN
       }
-      onClick={onClick}
+      onClick={!disabled ? onClick : undefined}
       type={type}
       {...props}
     >
