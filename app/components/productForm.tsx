@@ -127,22 +127,6 @@ const ProductForm = ({id, allProducts, currencies,  saveProductByKey}:ProductFor
     }
   }
   
-  /*
-  // tools to manage related Products
-  const relatedProductInputReference = useRef(null)
-  const removeRelatedProduct = (removeId:Number) => {
-    const element = relatedProductInputReference.current
-    const newValue = element.value.split(',').filter(item => Number(item) !== removeId).join(',')
-    element.value = newValue;
-    handleChange('relatedProducts')({target: element})
-  }
-  const addRelatedProduct = (addId:number) => {
-    const element = relatedProductInputReference.current
-    const newValue = [...element.value.split(','), addId].join(',')
-    element.value = newValue;
-    handleChange('relatedProducts')({target: element})
-  }*/
-
   return (
     <form className="p-4 w-full">
       {/* ID Field */}
@@ -283,6 +267,7 @@ const ProductForm = ({id, allProducts, currencies,  saveProductByKey}:ProductFor
         >
           Save
         </Button>
+        {/* in future put a reset button here */}
       </div>
     </form>
   )
