@@ -10,8 +10,8 @@ interface ProductListItemProps {
   id: number
   allProducts: productInterface[]
   exchangeRates: currencyStateInterface
-  popupStack:usePopupStateReturnInterface
-  user:users
+  popupStack?:usePopupStateReturnInterface
+  user?:users
   showDetailsButton?:boolean
   showEditButton?:boolean
 }
@@ -28,10 +28,9 @@ function ProductListItem ({
   const selectedCurrency = exchangeRates.selectedKey;
   const {name, price, photo} = findProductByID(id, allProducts);
   const exRate = findExchangeRate(price.base, exchangeRates.selectedKey, exchangeRates);
-  const {openProductDetails, openProductEdit} = popupStack;
-
+  
   return (
-    <li className="w-full p-5">
+    <li className="w-full p-5 list-none">
       <Card>
           <div className="w-full overflow-hidden flex justify-evenly p-2 flex-wrap xsm:flex-no-wrap">
             <div className="flex items-center w-40 h-40">{/*this will center image V */}
@@ -56,16 +55,16 @@ function ProductListItem ({
               </div>
               <div className="box-border flex justify-between flex-wrap h-10 w-32">
                 {
-                  showDetailsButton
-                  ? (<Button onClick={()=>openProductDetails(allProducts,id)}>Details</Button>)
+                  showDetailsButton && popupStack?.openProductDetails
+                  ? (<Button onClick={()=>popupStack?.openProductDetails?.(allProducts,id)}>Details</Button>)
                   : undefined
                 }
                 {
-                  showEditButton
+                  showEditButton && popupStack?.openProductEdit
                   ? (
                     <Button
                       disabled={user !== 'admin'}
-                      onClick={()=>openProductEdit(allProducts,id, user)}
+                      onClick={()=>popupStack?.openProductEdit?.(allProducts,id, user)}
                       tooltip={user === 'user' && 'Sign In to edit' || undefined}
                     >
                       Edit
