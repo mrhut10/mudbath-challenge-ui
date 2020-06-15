@@ -27,14 +27,7 @@ const PopupManager = ({
   popupStack,
   updateProductById,
 }: PopupManagerProps) => {
-  const {
-    currentValue,
-    openProductDetails,
-    openProductEdit,
-    closePopups,
-    danerousProductIDChangeAndCloseWindow,
-    wholeStack,
-  } = popupStack
+  const { currentValue } = popupStack
 
   return (
     <DialogOverlay isOpen={!!popupStack.currentValue}>
