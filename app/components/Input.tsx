@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes, InputHTMLAttributes, ChangeEvent } from 'react'
+import React, { ButtonHTMLAttributes, InputHTMLAttributes, ChangeEvent, LegacyRef } from 'react'
 
 interface InputProps {
   id: string,
@@ -7,10 +7,11 @@ interface InputProps {
   className?: string
   onChange: (e:ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void
   // remainding options
-  [key:string]: any
+  [key:string]: any,
 }
-const Input = ({id, type, validatorResult, onChange, className:CN, options, ...extraProps}:InputProps) => {
-
+const Input = React.forwardRef(
+  (props:InputProps, ref) => {
+    const {id, type, validatorResult, onChange, className:CN, options, ...extraProps} = props
   // if textArea
   if (type === 'textArea'){
     return (
@@ -23,6 +24,7 @@ const Input = ({id, type, validatorResult, onChange, className:CN, options, ...e
           + ' rounded-lg p-2 '
           + CN
         }
+        ref={ref as LegacyRef<HTMLTextAreaElement>}
         {...extraProps}
       />
     )
@@ -33,6 +35,7 @@ const Input = ({id, type, validatorResult, onChange, className:CN, options, ...e
       <select 
         id={id}
         name={id}
+        ref={ref as LegacyRef<HTMLSelectElement>}
         className={
           (validatorResult[0] ? 'bg-buttonbg' : 'bg-red-200') 
           + ' rounded-l-lg -p-2 appearance-none -m-2'
@@ -53,6 +56,7 @@ const Input = ({id, type, validatorResult, onChange, className:CN, options, ...e
     <input
       id={id}
       name={id}
+      ref={ref as LegacyRef<HTMLInputElement>}
       type={type}
       onChange={onChange}
       className={
@@ -64,7 +68,7 @@ const Input = ({id, type, validatorResult, onChange, className:CN, options, ...e
     />
   )
 
-}
+})
 
 
 export default Input
