@@ -63,6 +63,61 @@ class TextValidator {
     )
     return this
   }
+  isCommaSeparatedIntegers(failMessage:string){
+    this.rules.push(
+      (text:string) => text && typeof text === 'string' && /^\d+(,\d+)*$/.test(text) ? [true, ''] : [false, failMessage]
+    )
+    return this
+  }
+  isCommaSeparatedIntegersNotInclude(failMessage: string, value:number){
+    this.rules.push(
+      (text:string) =>
+        text &&
+        typeof text === 'string' &&
+        /^\d+(,\d+)*$/.test(text) &&
+        text.split(',').every(item => Number(item) !== value)
+          ? [true, '']
+          : [false, failMessage]
+    )
+    return this
+  }
+  isCommaSeparatedIntegerAndEachValueInList(failMessage:string, listOfIds:number[]){
+    this.rules.push(
+      (text:string) =>
+        text &&
+        typeof text === 'string' &&
+        /\d+(,\d+)*/.test(text) &&
+        text.split(',').every(item => /\d+/.test(item) && listOfIds.includes(Number(item)))
+          ? [true, '']
+          : [false, failMessage]
+    )
+    return this
+  }
+  isCommaSeparatedIntegerInquieValues(failMessage:string){
+    this.rules.push(
+      (text:string) => 
+        text &&
+        typeof text === 'string' &&
+        text.split(',').every(item => /\d+/.test(item)) &&
+        text.split(',')
+          .reduce<[boolean, number[]]>(
+            (acc, next) => {
+              // this test each item in array is unquie number
+              const value = Number(next)
+              // case previous fail
+              if (!acc[0]) return acc
+            
+              // case new fail
+              if (acc[1].includes(value)) return [false, acc[1]]
+
+              // case pass
+              return [true, [...acc[1], value]]
+          },
+          [true, []]
+        )[0] ? [true, ''] : [false, failMessage]
+    )
+    return this
+  }
   validate(text:string):[boolean, string]{
     return this.rules.reduce<[boolean, string]>(
       (acc, next) => {
