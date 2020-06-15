@@ -20,15 +20,9 @@ const UserItem = ({user, toogleUser, setUser}:UserItemProps) => {
   const alternativeUser = user === 'admin' ? 'user' : 'admin';
   return (
     <div className="p-3">
-      <a className="text-shadow-link hover:font-bold" onClick={()=>setUser(alternativeUser)}>
+      <a className="text-shadow-link font-bold hover:text-light" onClick={()=>setUser(alternativeUser)}>
         {user === 'admin' ? 'Log out' : 'Sign In'}
       </a>
-      {/*
-        this is if i want a dropdown menu later
-        <ul className="fixed box-border w-full m-2 rounded-lg z-10 bg-mainbg border-2 border-buttonbord">
-          <li>test</li>
-        </ul>
-       */}
     </div>
   )
 }
