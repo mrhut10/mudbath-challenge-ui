@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react';
-import Header from './header';
+import React, { ReactNode } from 'react'
+import Header from './header'
 import Logo from './logo'
 
 interface layoutProps {
@@ -7,14 +7,11 @@ interface layoutProps {
   MenuItems: ReactNode
 }
 
-const Layout = ({children, MenuItems}) => (
+const Layout = ({ children, MenuItems }) => (
   <div className="bg-mainbg font-sans text-dark relative">
-    <Header
-      title={<Logo includeByMudBath/>}
-      children={MenuItems}
-    />
+    <Header title={<Logo includeByMudBath />} children={MenuItems} />
     {children}
   </div>
 )
 
-export default Layout;
+export default Layout

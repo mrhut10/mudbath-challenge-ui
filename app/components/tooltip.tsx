@@ -4,21 +4,33 @@
  */
 
 import React, { ReactNode } from 'react'
-import TooltipTrigger from 'react-popper-tooltip';
-import 'react-popper-tooltip/dist/styles.css';
+import TooltipTrigger from 'react-popper-tooltip'
+import 'react-popper-tooltip/dist/styles.css'
 
 interface TooltipProps {
   children: ReactNode
   tooltip: ReactNode
-  trigger: 'none' | 'click' | 'right-click' | 'hover' | 'focus',
-  placement: 'auto-start' | 'auto'| 'auto-end'| 'top-start'| 'top'| 'top-end'
-    | 'right-start' | 'right' | 'right-end' | 'bottom-end' | 'bottom'
-    | 'bottom-start' | 'left-end' | 'left' | 'left-start';
+  trigger: 'none' | 'click' | 'right-click' | 'hover' | 'focus'
+  placement:
+    | 'auto-start'
+    | 'auto'
+    | 'auto-end'
+    | 'top-start'
+    | 'top'
+    | 'top-end'
+    | 'right-start'
+    | 'right'
+    | 'right-end'
+    | 'bottom-end'
+    | 'bottom'
+    | 'bottom-start'
+    | 'left-end'
+    | 'left'
+    | 'left-start'
   hideArrow: boolean
-  
 }
 
-const Tooltip = ({children, tooltip, hideArrow, ...props}:TooltipProps) => (
+const Tooltip = ({ children, tooltip, hideArrow, ...props }: TooltipProps) => (
   <TooltipTrigger
     {...props}
     tooltip={({
@@ -26,12 +38,12 @@ const Tooltip = ({children, tooltip, hideArrow, ...props}:TooltipProps) => (
       tooltipRef,
       getArrowProps,
       getTooltipProps,
-      placement
+      placement,
     }) => (
       <div
         {...getTooltipProps({
           ref: tooltipRef,
-          className: 'tooltip-container'
+          className: 'tooltip-container',
         })}
       >
         {!hideArrow && (
@@ -39,7 +51,7 @@ const Tooltip = ({children, tooltip, hideArrow, ...props}:TooltipProps) => (
             {...getArrowProps({
               ref: arrowRef,
               className: 'tooltip-arrow',
-              'data-placement': placement
+              'data-placement': placement,
             })}
           />
         )}
@@ -47,17 +59,17 @@ const Tooltip = ({children, tooltip, hideArrow, ...props}:TooltipProps) => (
       </div>
     )}
   >
-    {({getTriggerProps, triggerRef}) => (
+    {({ getTriggerProps, triggerRef }) => (
       <span
         {...getTriggerProps({
           ref: triggerRef,
-          className: 'trigger'
+          className: 'trigger',
         })}
       >
         {children}
       </span>
     )}
   </TooltipTrigger>
-);
- 
-export default Tooltip;
+)
+
+export default Tooltip

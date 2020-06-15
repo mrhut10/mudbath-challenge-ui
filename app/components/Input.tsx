@@ -1,28 +1,42 @@
-import React, { ButtonHTMLAttributes, InputHTMLAttributes, ChangeEvent, LegacyRef } from 'react'
+import React, {
+  ButtonHTMLAttributes,
+  InputHTMLAttributes,
+  ChangeEvent,
+  LegacyRef,
+} from 'react'
 
 interface InputProps {
-  id: string,
-  type: InputHTMLAttributes<HTMLInputElement>["type"]
+  id: string
+  type: InputHTMLAttributes<HTMLInputElement>['type']
   validatorResult: [boolean, string] | boolean
   className?: string
-  onChange: (e:ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void
+  onChange: (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+  ) => void
   // remainding options
-  [key:string]: any,
+  [key: string]: any
 }
-const Input = React.forwardRef(
-  (props:InputProps, ref) => {
-    const {id, type, validatorResult, onChange, className:CN, options, ...extraProps} = props
+const Input = React.forwardRef((props: InputProps, ref) => {
+  const {
+    id,
+    type,
+    validatorResult,
+    onChange,
+    className: CN,
+    options,
+    ...extraProps
+  } = props
   // if textArea
-  if (type === 'textArea'){
+  if (type === 'textArea') {
     return (
       <textarea
         id={id}
         name={id}
         onChange={onChange}
         className={
-          (validatorResult[0] ? 'bg-white' : 'bg-red-200') 
-          + ' rounded-lg p-2 '
-          + CN
+          (validatorResult[0] ? 'bg-white' : 'bg-red-200') +
+          ' rounded-lg p-2 ' +
+          CN
         }
         ref={ref as LegacyRef<HTMLTextAreaElement>}
         {...extraProps}
@@ -30,27 +44,31 @@ const Input = React.forwardRef(
     )
   }
 
-  if (type === 'select'){
+  if (type === 'select') {
     return (
-      <select 
+      <select
         id={id}
         name={id}
         ref={ref as LegacyRef<HTMLSelectElement>}
         className={
-          (validatorResult[0] ? 'bg-buttonbg' : 'bg-red-200') 
-          + ' rounded-l-lg -p-2 appearance-none -m-2'
-          + CN
+          (validatorResult[0] ? 'bg-buttonbg' : 'bg-red-200') +
+          ' rounded-l-lg -p-2 appearance-none -m-2' +
+          CN
         }
         onChange={onChange}
-        {...extraProps}>
-        {
-          Array.isArray(options) && options.map(item => <option key={item} value={item}>{item}</option>)
-        }
-        <option value='invalid'>invalid</option>
+        {...extraProps}
+      >
+        {Array.isArray(options) &&
+          options.map((item) => (
+            <option key={item} value={item}>
+              {item}
+            </option>
+          ))}
+        <option value="invalid">invalid</option>
       </select>
     )
   }
-  
+
   // default input
   return (
     <input
@@ -60,15 +78,13 @@ const Input = React.forwardRef(
       type={type}
       onChange={onChange}
       className={
-        (validatorResult[0] ? 'bg-white' : 'bg-red-200') 
-        + ' rounded-lg p-2 '
-        + CN
+        (validatorResult[0] ? 'bg-white' : 'bg-red-200') +
+        ' rounded-lg p-2 ' +
+        CN
       }
       {...extraProps}
     />
   )
-
 })
-
 
 export default Input
