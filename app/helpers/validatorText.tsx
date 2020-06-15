@@ -1,5 +1,4 @@
 import Validator, {validationResult, validationTest} from './validator'
-import { assert } from './index'
 
 const regexNumber = /^[-+]?(\d*\.?\d*)?$/
 const regexInteger = /^[-+]?\d*$/
