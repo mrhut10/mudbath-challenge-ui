@@ -81,13 +81,13 @@ class TextValidator {
     )
     return this
   }
-  isCommaSeparatedIntegerAndEachValueInList(failMessage:string, listOfIds:number[]){
+  isCommaSeparatedIntegerAndEachValueInList(failMessage:string, fnToValues:() => number[]){
     this.rules.push(
       (text:string) =>
         text &&
         typeof text === 'string' &&
-        /\d+(,\d+)*/.test(text) &&
-        text.split(',').every(item => /\d+/.test(item) && listOfIds.includes(Number(item)))
+        /^\d+(,\d+)*$/.test(text) &&
+        text.split(',').every(item => /^\d+$/.test(item) && fnToValues().includes(Number(item)))
           ? [true, '']
           : [false, failMessage]
     )

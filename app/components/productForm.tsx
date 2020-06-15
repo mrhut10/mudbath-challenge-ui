@@ -78,11 +78,11 @@ const ProductForm = ({id, allProducts, currencies,  saveProductByKey}:ProductFor
       validator: new TextValidator()
         .isCommaSeparatedIntegers('Error relatedProducts must be comma separated list of non negative integers')
         .isCommaSeparatedIntegersNotInclude('must not reference itself',product.id)
+        .isCommaSeparatedIntegerInquieValues('each value must be unquie')
         .isCommaSeparatedIntegerAndEachValueInList(
           'must be comma separated product ids that exist',
-          allProducts.map(item => item.id)
+          () => allProducts.map(item => item.id)
         )
-        .isCommaSeparatedIntegerInquieValues('each value must be unquie')
         ,
       value: product.relatedProducts.join(',')
     }
