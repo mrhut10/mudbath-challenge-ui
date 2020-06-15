@@ -8,7 +8,8 @@
     "start-tsc": "tsc --noEmit --watch",
     "start-dev": "parcel index.html",
     "build": "parcel build index.html",
-    "test": "tsc --noEmit && ts-node ./app/tests.ts"
+    "test": "tsc --noEmit && ts-node ./app/tests.ts",
+    "prettier": "prettier --single-quote --no-semi --trailing-comma all --write \"app/**/*.ts*\""
   },
   "staticFiles": {
     "staticPath": "data",
@@ -37,6 +38,7 @@
     "csstype": "^2.6.10",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-static-files-copy": "^2.4.1",
+    "prettier": "2.0.5",
     "tailwindcss": "^1.4.6",
     "tailwindcss-aspect-ratio": "^3.0.0",
     "tailwindcss-textshadow": "^2.0.0",
