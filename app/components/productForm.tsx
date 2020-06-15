@@ -74,6 +74,18 @@ const ProductForm = ({id, allProducts, currencies,  saveProductByKey}:ProductFor
         .isNumberMinValue(failMessages.priceAmount, 0),
       value: String(product.price.amount)
     },
+    relatedProducts: {
+      validator: new TextValidator()
+        .isCommaSeparatedIntegers('Error relatedProducts must be comma separated list of non negative integers')
+        .isCommaSeparatedIntegersNotInclude('must not reference itself',product.id)
+        .isCommaSeparatedIntegerAndEachValueInList(
+          'must be comma separated product ids that exist',
+          allProducts.map(item => item.id)
+        )
+        .isCommaSeparatedIntegerInquieValues('each value must be unquie')
+        ,
+      value: product.relatedProducts.join(',')
+    }
   }
   const [fieldData, setFieldData] = useState<fieldsDescriptor>(resetData)
   const ValidationResults: [string, [boolean, string]][] = Object.keys(fieldData)
@@ -111,6 +123,8 @@ const ProductForm = ({id, allProducts, currencies,  saveProductByKey}:ProductFor
               returnData.price = {...returnData.price, amount: Number(field.value)}
             } else if (next === 'priceBase'){
               returnData.price = {...returnData.price,base: field.value}
+            } else if (next === 'relatedProducts'){
+              returnData.relatedProducts = field.value.split(',').map(item => Number(item))
             } else {
               returnData[next] = field.value
             }
@@ -177,6 +191,7 @@ const ProductForm = ({id, allProducts, currencies,  saveProductByKey}:ProductFor
           className='w-full'
         />
       </TooltipValidation>
+      {/* price Fields (amount and base) */}
       <TooltipValidation
         labelMessage={({id:'price', message: 'Price'})}
         NotValidMessage={
@@ -207,6 +222,22 @@ const ProductForm = ({id, allProducts, currencies,  saveProductByKey}:ProductFor
             defaultValue={fieldData.priceAmount.value}
             className=" appearance-none w-full"
           />
+      </TooltipValidation>
+      {/* related Products */}
+      <TooltipValidation
+        labelMessage={({id:'relatedProducts', message: 'Related'})}
+        NotValidMessage={ValidationResults.find(item => item[0] === 'relatedProducts')[1][1]}
+        TooltipMessage="Related Products"
+      >
+        <Input
+          id='relatedProducts'
+          name='relatedProducts'
+          type='text'
+          defaultValue={fieldData.relatedProducts.value}
+          validatorResult={ValidationResults.find(item => item[0] === 'relatedProducts')[1]}
+          onChange={handleChange('relatedProducts')}
+          className='w-full'
+        />
       </TooltipValidation>
         {
           ValidationErrors.length > 0 &&
