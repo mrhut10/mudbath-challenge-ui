@@ -13,7 +13,7 @@ const Button = ({children, onClick, className:CN, tooltip, disabled=false, type=
     <button
       className={
         "rounded-lg py-px px-2 border-2 border-buttonbord hover:border-light " +
-          (!disabled ? 'bg-buttonbg ' : 'bg-disabled text-cardbg ') + CN
+          (!disabled ? 'bg-buttonbg ' : 'opacity-50 cursor-not-allowed ') + CN
       }
       onClick={onClick}
       type={type}
