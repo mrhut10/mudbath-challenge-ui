@@ -7,7 +7,8 @@
     "test": "tsc --noEmit",
     "start": "concurrently yarn:start-*",
     "start-tsc": "tsc --noEmit --watch",
-    "start-dev": "parcel index.html"
+    "start-dev": "parcel index.html",
+    "build": "parcel build index.html"
   },
   "staticFiles": {
     "staticPath": "data",
