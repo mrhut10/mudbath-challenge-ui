@@ -14,8 +14,8 @@ ZYX has ask for a stock viewing system
 * **build for production**
   note this product optimised for production but if you need to run in production run<br/>```yarn build```<br/> 
   not this project hasn't been optimized for production, and you will also need to have something serve the files.
-
-
+* **Hidden Manual Tests**
+  there is also hidden manual tests which test the underlying hooks controlling state you can view if you run<br/> ```yarn manualtest```
 
 **Notes On Decisions**
 
@@ -41,6 +41,6 @@ ZYX has ask for a stock viewing system
   * background - relatedProducts was at the time stored in a text field as comma separated integers
   * the validation logic made sure each integer was unique and referred to a product that existed
   * because the validation logic was in state, it didn't account for product ID's changing, so would report as invalid state when pointing too a product whos ID had been changed.
+  * by pulling the validation logic out of being stored in state and instead being generated on component rendering has removed this problem plus... then I ended up pulling out that method of having comma separated integers anyway.
 
-  * validation logic in form was originally stored in state, 
 
