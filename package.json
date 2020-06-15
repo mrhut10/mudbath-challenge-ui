@@ -4,11 +4,11 @@
   "description": "XYZ asked for a stock viewing system",
   "main": "index.html",
   "scripts": {
-    "test": "tsc --noEmit",
     "start": "concurrently yarn:start-*",
     "start-tsc": "tsc --noEmit --watch",
     "start-dev": "parcel index.html",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html",
+    "test": "tsc --noEmit && ts-node ./app/tests.ts"
   },
   "staticFiles": {
     "staticPath": "data",
@@ -33,12 +33,14 @@
     "@types/react-dom": "^16.9.8",
     "autoprefixer": "^9.8.0",
     "concurrently": "^5.2.0",
+    "cross-env": "^7.0.2",
     "csstype": "^2.6.10",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-static-files-copy": "^2.4.1",
     "tailwindcss": "^1.4.6",
     "tailwindcss-aspect-ratio": "^3.0.0",
     "tailwindcss-textshadow": "^2.0.0",
+    "ts-node": "^8.10.2",
     "typescript": "^3.9.5"
   }
 }

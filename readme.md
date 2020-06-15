@@ -8,6 +8,9 @@ ZYX has ask for a stock viewing system
 * install dependencies in terminal run<br/>```yarn install```
 * **Dev Server**
   this will concurrently run typescript as a type checker and parsel-bundler dev server both in watch mode.<br/>```yarn dev```
+* **Running Tests**
+  this will both run the ts type checking plus fire off tests<br/>```yarn test```<br/>
+  note currently only defined tests for the ValidatorText class `./app/helpers/ValidatorText`
 * **build for production**
   note this product optimised for production but if you need to run in production run<br/>```yarn build```<br/> 
   not this project hasn't been optimized for production, and you will also need to have something serve the files.

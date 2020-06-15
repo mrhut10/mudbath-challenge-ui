@@ -35,3 +35,10 @@ export const clampNumber = (min:number, max:number) => (value:number):number => 
   // is within range
   return value;
 }
+
+
+export function assert(value:boolean, message:string){
+  console.count(value ? 'test pass' : 'test fail')
+  console.assert(value, message)
+}
+
