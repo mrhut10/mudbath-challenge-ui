@@ -31,16 +31,14 @@ ZYX has ask for a stock viewing system
   * using colour and padding to create a organised hierarchy within the design
   * change spacing between logo elements
   * removed hover effects which changed font weight which made a janky width jump of elements
-* Had problems with the way I was updating state
-  * when product is updated (especially an ID Change)
-  * products that relate to the product with related products also need to be updated
-  * but also popupState needs to be updated with its ID references / alternatively we could clear the popupState which I considered.
+* Address State Problem
+  when product is updated (especially an ID Change) both
+    * products that relate via related Problems need to update there references
+    * popupState needs to be updated with its ID references / alternatively we could clear the popupState.
   * originally I was only updating products one by one, however this caused the app to update components in a invalid state where previous ID's are still referred too (in popupState and relatedProducts fields on other products)
-* Had problem with validation logic
-  * validation logic was stored in state, which means it didn't update dynamically.
-  * background - relatedProducts was at the time stored in a text field as comma separated integers
-  * the validation logic made sure each integer was unique and referred to a product that existed
-  * because the validation logic was in state, it didn't account for product ID's changing, so would report as invalid state when pointing too a product whos ID had been changed.
-  * by pulling the validation logic out of being stored in state and instead being generated on component rendering has removed this problem plus... then I ended up pulling out that method of having comma separated integers anyway.
+* Form Validation Bug
+  validation was stateful and hence the unique check on product ID's didn't update.
+  * it also effected relatedProducts validation (originally was stored in UI as comma separated integers)
+  * by pulling the validation logic out of state, and making functional which could run at rerender has removed this problem plus... ended up changing the way relatedProducts was stored in state anyway.
 
 
