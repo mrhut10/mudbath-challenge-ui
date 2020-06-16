@@ -3,7 +3,7 @@ import ValidatorObject, {
   validationResult,
   validationTest,
 } from '../helpers/validatorObject'
-import ValidatorText from '../helpers/ValidatorText'
+import ValidatorText from '../helpers/validatorText'
 import { findProductByID, findExchangeRate } from '../helpers/index'
 import Button from './button'
 import TooltipValidation from './TooltipValidation'
