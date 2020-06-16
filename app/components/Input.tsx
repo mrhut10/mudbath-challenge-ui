@@ -64,7 +64,6 @@ const Input = React.forwardRef((props: InputProps, ref) => {
               {item}
             </option>
           ))}
-        <option value="invalid">invalid</option>
       </select>
     )
   }
