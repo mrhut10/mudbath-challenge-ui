@@ -39,6 +39,6 @@ ZYX has ask for a stock viewing system
 * Form Validation Bug
   validation was stateful and hence the unique check on product ID's didn't update.
   * it also effected relatedProducts validation (originally was stored in UI as comma separated integers)
-  * by pulling the validation logic out of state, and making functional which could run at rerender has removed this problem plus... ended up changing the way relatedProducts was stored in state anyway.
+  * by pulling the validation logic out of state, and making functional which could run at re-render has removed this problem plus... ended up changing the way relatedProducts was stored in state anyway.
 
 

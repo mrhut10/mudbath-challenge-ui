@@ -13,7 +13,7 @@ interface InputProps {
   onChange: (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => void
-  // remainding options
+  // remanding options
   [key: string]: any
 }
 const Input = React.forwardRef((props: InputProps, ref) => {
