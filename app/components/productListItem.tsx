@@ -1,35 +1,40 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import Card from './card'
 import Button from './button'
 import { findExchangeRate, findProductByID, users } from '../helpers/index'
-import { productInterface } from '../hooks/getAllProducts'
-import { currencyStateInterface } from '../hooks/getAllCurrencies'
-import { usePopupStateReturnInterface } from '../hooks/usePopupState'
+import { productInterface, productState } from '../redux/reducers/products'
+import { currenciesState } from '../redux/reducers/currencies'
+import { userNames } from '~/redux/reducers/user'
+import { productDialogView, productDialogEdit } from '../redux/actions'
+
 
 interface ProductListItemProps {
   id: number
   allProducts: productInterface[]
-  exchangeRates: currencyStateInterface
-  popupStack?: usePopupStateReturnInterface
+  exchangeRates: currenciesState
   user?: users
   showDetailsButton?: boolean
   showEditButton?: boolean
+  productDialogView: (id:number) => void,
+  productDialogEdit: (id:number, user: userNames) => void,
 }
 
 function ProductListItem({
   id,
   allProducts,
   exchangeRates,
-  popupStack,
   user = 'user',
   showDetailsButton = true,
   showEditButton = user === 'admin',
+  productDialogEdit,
+  productDialogView,
 }: ProductListItemProps) {
-  const selectedCurrency = exchangeRates.selectedKey
+  const selectedCurrency = exchangeRates.selected
   const { name, price, photo } = findProductByID(id, allProducts)
   const exRate = findExchangeRate(
     price.base,
-    exchangeRates.selectedKey,
+    exchangeRates.selected,
     exchangeRates,
   )
 
@@ -62,21 +67,15 @@ function ProductListItem({
               )}
             </div>
             <div className="box-border flex justify-between flex-wrap h-10 w-32">
-              {showDetailsButton && popupStack?.openProductDetails ? (
-                <Button
-                  onClick={() =>
-                    popupStack?.openProductDetails?.(allProducts, id)
-                  }
-                >
+              {showDetailsButton ? (
+                <Button onClick={() => productDialogView(id)}>
                   Details
                 </Button>
               ) : undefined}
-              {showEditButton && popupStack?.openProductEdit ? (
+              {showEditButton ? (
                 <Button
                   disabled={user !== 'admin'}
-                  onClick={() =>
-                    popupStack?.openProductEdit?.(allProducts, id, user)
-                  }
+                  onClick={() => productDialogEdit(id, user)}
                   tooltip={(user === 'user' && 'Sign In to edit') || undefined}
                 >
                   Edit
@@ -90,4 +89,11 @@ function ProductListItem({
   )
 }
 
-export default ProductListItem
+const mapStateToProps = state => ({
+  allProducts: state.products.allProducts,
+  exchangeRates: state.currencies,
+  user: state.user
+  // popupStack?: usePopupStateReturnInterface
+})
+
+export default connect(mapStateToProps, {productDialogView, productDialogEdit})(ProductListItem)

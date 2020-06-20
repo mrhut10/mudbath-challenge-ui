@@ -1,19 +1,21 @@
 import React, { useState } from 'react'
+import { connect } from "react-redux";
+import { login, currencySelect } from '../redux/actions'
+import {currenciesState} from '../redux/reducers/currencies'
+import { userNames } from '../redux/reducers/user'
+
 import Popup from 'reactjs-popup'
-import { FaUserAstronaut, FaDollarSign } from 'react-icons/fa'
-import { users } from '../hooks/useUser'
-import { currencyStateInterface } from '../hooks/getAllCurrencies'
 import Button from './button'
 
 interface UserItemProps {
-  user: users
+  user: userNames
   toogleUser: () => void
-  setUser: (user: users) => void
+  setUser: (user: userNames) => void
 }
 
 interface CurrencyItemProps {
-  exchangeRates: currencyStateInterface
-  setCurrency: (a: currencyStateInterface['selectedKey']) => void
+  exchangeRates: currenciesState
+  setCurrency: (a: currenciesState['selected']) => void
 }
 
 const UserItem = ({ user, toogleUser, setUser }: UserItemProps) => {
@@ -45,7 +47,7 @@ const CurencyItem = ({ exchangeRates, setCurrency }: CurrencyItemProps) => (
       }
     >
       <ul>
-        {exchangeRates.data.map((rate) => (
+        {exchangeRates.allCurrencies.map((rate) => (
           <li key={rate.base} className="p-2">
             <Button onClick={() => setCurrency(rate.base)}>
               Set To {rate.base}
@@ -59,16 +61,24 @@ const CurencyItem = ({ exchangeRates, setCurrency }: CurrencyItemProps) => (
 
 const MenuItems = ({
   user,
-  setUser,
-  toogleUser,
-  exchangeRates,
-  setCurrency,
+  currencies,
+  login,
+  currencySelect,
+  toogleUser= () => user === 'admin' ? login('user') : login('admin'),
 }) => {
   return (
     <div className="flex justify-center flex-0">
-      <CurencyItem exchangeRates={exchangeRates} setCurrency={setCurrency} />
-      <UserItem user={user} setUser={setUser} toogleUser={toogleUser} />
+      <CurencyItem exchangeRates={currencies} setCurrency={currencySelect} />
+      <UserItem user={user} setUser={login} toogleUser={toogleUser} />
     </div>
   )
 }
-export default MenuItems
+
+const mapStateToProps = state => {
+  const { user, currencies } = state
+  return {
+    user,
+    currencies
+  }
+}
+export default connect(mapStateToProps, { login, currencySelect })(MenuItems)
