@@ -1,17 +1,12 @@
 import { JSONFileState } from '../hooks/getJSONFileData'
-import { currencyStateInterface, currencyItem } from '../hooks/getAllCurrencies'
-import { productInterface } from '../hooks/getAllProducts'
+import { currenciesState } from '../redux/reducers/currencies'
+import { productInterface } from '../redux/reducers/products'
 
 export function findExchangeRate(
   base: string,
   target: string,
-  exchangeRates: currencyStateInterface,
+  exchangeRates: currenciesState,
 ): number | undefined {
-  if (exchangeRates.status === 'downloading' || !target) {
-    // either exchangeRates haven't loaded yet or target isn't defined
-    return undefined
-  }
-
   if (base === undefined || target === undefined) {
     return undefined
   }
@@ -21,7 +16,7 @@ export function findExchangeRate(
     return 1
   }
 
-  const baseDef = exchangeRates.data.find((item) => item.base === base)
+  const baseDef = exchangeRates.allCurrencies.find((item) => item.base === base)
   const exRate = baseDef ? baseDef.rates[target] : undefined
   return exRate
 }
