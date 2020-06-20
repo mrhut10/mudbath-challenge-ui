@@ -7,6 +7,7 @@ export const PRODUCT_EDIT = 'PRODUCT_EDIT'
 export const PRODUCT_DELETE = 'PRODUCT_DELETE'
 export const PRODUCT_DIALOG_VIEW = 'PRODUCT_DIALOG_VIEW'
 export const PRODUCT_DIALOG_EDIT = 'PRODUCT_DIALOG_EDIT'
+export const PRODUCT_DIALOG_CLOSE = 'PRODUCT_DIALOG_CLOSE'
 
 export const USER_LOGIN = 'USER_LOGIN'
 
@@ -45,6 +46,11 @@ export interface ACTION_PRODUCT_DIALOG_EDIT extends action {
     id: number,
     type:'edit',
   }
+}
+
+export interface ACTION_PRODUCT_DIALOG_CLOSE extends action {
+  type: typeof PRODUCT_DIALOG_CLOSE
+  payload: number
 }
 
 export interface ACTION_USER_LOGIN extends action {

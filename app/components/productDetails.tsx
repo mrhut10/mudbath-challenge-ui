@@ -1,24 +1,23 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { findProductByID, findExchangeRate } from '../helpers/index'
 import ProductListItem from './productListItem'
 import { productInterface } from '../hooks/getAllProducts'
-import { currencyStateInterface } from '../hooks/getAllCurrencies'
+import { currenciesState } from '../redux/reducers/currencies'
 import { users } from '../hooks/useUser'
 import { usePopupStateReturnInterface } from '../hooks/usePopupState'
 
 interface ProductDetailsProps {
   id: number
   allProducts: productInterface[]
-  currencies: currencyStateInterface
+  currencies: currenciesState
   user: users
-  popupState: usePopupStateReturnInterface
 }
 const ProductDetails = ({
   id,
   user,
   allProducts,
   currencies,
-  popupState,
 }: ProductDetailsProps) => {
   const { name, description, price, relatedProducts } = findProductByID(
     id,
@@ -26,7 +25,7 @@ const ProductDetails = ({
   )
   const exRate = findExchangeRate(
     price.base,
-    currencies.selectedKey,
+    currencies.selected,
     currencies,
   )
   const priceInLocal = exRate ? (price.amount * exRate).toFixed(2) : undefined
@@ -36,7 +35,7 @@ const ProductDetails = ({
       <div className="p-2 flex w-full justify-between">
         <div className="font-bold">
           <span className="text-lg">${priceInLocal}</span>{' '}
-          <span className="text-sm">{currencies.selectedKey}</span>{' '}
+          <span className="text-sm">{currencies.selected}</span>{' '}
           <span className="text-sm text-deemphgrey">
             / {price.amount.toFixed(2)} {price.base}
           </span>
@@ -52,16 +51,7 @@ const ProductDetails = ({
         <h3 className="text-deemphgrey">Related</h3>
         <div className="py-8">
           {relatedProducts.map((product) => (
-            <ProductListItem
-              id={product}
-              key={product}
-              user={user}
-              allProducts={allProducts}
-              exchangeRates={currencies}
-              popupStack={popupState}
-              showDetailsButton
-              showEditButton={false}
-            />
+            <ProductListItem id={product} key={product} showDetailsButton showEditButton={false}/>
           ))}
         </div>
       </div>
@@ -69,4 +59,12 @@ const ProductDetails = ({
   )
 }
 
-export default ProductDetails
+const mapStateToProps = state => ({
+  allProducts: state.products.allProducts,
+  currencies: state.currencies,
+  user: state.users,
+
+  // popupState: usePopupStateReturnInterface  
+})
+
+export default connect(mapStateToProps)(ProductDetails)

@@ -1,28 +1,33 @@
 import React, { ReactElement } from 'react'
+import { connect } from 'react-redux'
+import Dialog from '@reach/dialog'
 import Button from './button'
 import Tooltip from './tooltip'
+import { productDialogEdit, productDialogClose } from '../redux/actions'
 import { findProductByID } from '../helpers/index'
-import { productInterface } from '../hooks/getAllProducts'
-import { users } from '../hooks/useUser'
-import { usePopupStateReturnInterface } from '../hooks/usePopupState'
-import Dialog from '@reach/dialog'
+import { productInterface, productState } from '../redux/reducers/products'
+import { userNames } from '../redux/reducers/user'
 
 interface DialogMenuProps {
   id: number
   allProducts: productInterface[]
-  user: users
-  popupState: usePopupStateReturnInterface
+  user: userNames,
+  wholeStack: productState['productDialogState']
   showEdit?: boolean
   heading?: string
+  productDialogEdit: (id:number, user: userNames) => void,
+  productDialogClose: (count:number) => void
 }
 
 const DialogMenu = ({
   id,
   user,
   allProducts,
-  popupState,
+  wholeStack,
   showEdit = true,
   heading,
+  productDialogEdit,
+  productDialogClose,
 }: DialogMenuProps) => (
   <div className="flex flex-col justify-between">
     {/* Title and Menu Buttons */}
@@ -33,7 +38,7 @@ const DialogMenu = ({
           <Button
             onClick={() =>
               user === 'admin' &&
-              popupState.openProductEdit(allProducts, id, user)
+              productDialogEdit(id, user)
             }
             className={user === 'admin' ? 'my-2' : 'my-2 bg-disabled'}
             tooltip={user === 'admin' ? undefined : 'Login To Enable Editing'}
@@ -50,7 +55,7 @@ const DialogMenu = ({
         >
           <button
             className="p-2 text-xl text-red-400 bg-transparent "
-            onClick={() => popupState.closePopups(1)}
+            onClick={() => productDialogClose(1)}
           >
             <span>X</span>
             <span className="sr-only">close</span>
@@ -60,7 +65,9 @@ const DialogMenu = ({
     </div>
     {/* Breadcrumbs Nav */}
     <div className="m-2 w-full flex flex-wrap">
-      {popupState.wholeStack
+      {
+        
+      wholeStack
         // not include last value & trim enough from front to keep under max number
         .filter((value, i, list) => {
           const maxItems = 4
@@ -72,11 +79,11 @@ const DialogMenu = ({
           return (
             <div
               key={`${value.id}:${value.type}:i=${i}`}
-              onClick={() => popupState.closePopups(list.length - i)}
+              onClick={() => productDialogClose(list.length - 1)}
               className="bg-cardbg hover:text-light ml-3 my-1"
             >
               {i === 0 ? '../' : '/'} {name} (
-              {value.type === 'productEdit' ? 'Edit' : 'View'})
+              {value.type === 'edit' ? 'Edit' : 'View'})
             </div>
           )
         })}
@@ -84,4 +91,10 @@ const DialogMenu = ({
   </div>
 )
 
-export default DialogMenu
+const mapStateToProps = state => ({
+  allProducts: state.products.allProducts,
+  user: state.user,
+  wholeStack: state.products.productDialogState
+})
+
+export default connect(mapStateToProps, {productDialogEdit, productDialogClose})(DialogMenu)

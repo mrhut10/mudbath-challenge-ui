@@ -5,15 +5,13 @@ import 'regenerator-runtime/runtime'
 import { Provider, connect } from "react-redux";
 import store from './redux/store'
 import {productAdd, currencyAdd, currencySelect } from './redux/actions'
-import { productInterface } from './redux/reducers/products'
-import { currenciesState } from './redux/reducers/currencies';
 import Layout from './components/layout'
 import MenuItems from './components/MenuItems'
 import ProductList from './components/productList'
-import getAllProducts from './hooks/getAllProducts';
 import ProductListItem from './components/productListItem';
-//import ProductListItem from './components/productListItem'
-//import DialogManager from './components/dialogManager'
+import DialogManager from './components/dialogManager'
+import { productInterface } from './redux/reducers/products'
+import { currenciesState } from './redux/reducers/currencies';
 
 //import useUser, { users } from './hooks/useUser'
 //import getAllCurrencies from './hooks/getAllCurrencies'
@@ -49,21 +47,13 @@ const App = ({currencyAdd, productAdd, allProducts, currencySelect}:AppProps) =>
   
   return (
     <Layout MenuItems={<MenuItems />}>
-      <ProductList>{
-        allProducts.map(
+      <ProductList>
+        {
+          allProducts.map(
           (a, i)=> <ProductListItem id={a.id} key={i} showDetailsButton={true}/>)
-      }</ProductList>
-      {/*
-        <DialogManager
-          popupStack={popupStack}
-          user={user}
-          allProducts={allProducts.data}
-          exchangeRates={allCurrencies}
-          updateProductById={(user: users, id: number, data) => {
-            updateProductByKey(id, data, user)
-          }}
-        />
-      */}
+        }
+      </ProductList>
+      <DialogManager />
     </Layout>
   )
 }
@@ -71,7 +61,7 @@ const App = ({currencyAdd, productAdd, allProducts, currencySelect}:AppProps) =>
 const AppWithDispatch =
   connect(
     state => ({
-      allProducts: state.products.allProducts
+      allProducts: state.products.allProducts,
     }),
     {productAdd, currencyAdd, currencySelect}
   )(App)

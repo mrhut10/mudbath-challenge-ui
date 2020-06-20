@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
-import { findProductByID } from '../helpers/index'
+import { connect } from 'react-redux'
+import { findProductByID, last } from '../helpers/index'
 import Overlay from './overlay'
 import DialogMenu from './dialogMenu'
 import ProductDetails from './productDetails'
@@ -11,7 +12,7 @@ import { users } from '../hooks/useUser'
 
 interface ContentProductDetailsProps {
   id: productInterface['id']
-  popupStack: usePopupStateReturnInterface
+//  popupStack: usePopupStateReturnInterface
   user: users
   allProducts: productInterface[]
   exchangeRates: currencyStateInterface
@@ -19,7 +20,6 @@ interface ContentProductDetailsProps {
 
 const ContentProductDetails = ({
   id,
-  popupStack,
   user,
   allProducts,
   exchangeRates,
@@ -50,20 +50,17 @@ const ContentProductDetails = ({
       >
         <DialogMenu
           id={id}
-          user={user}
-          allProducts={allProducts}
-          popupState={popupStack}
         />
       </Overlay>
-      <ProductDetails
-        id={id}
-        user={user}
-        allProducts={allProducts}
-        currencies={exchangeRates}
-        popupState={popupStack}
-      />
+      <ProductDetails id={id} />
     </>
   )
 }
 
-export default ContentProductDetails
+const mapStateToProps = state => ({
+  user: state.users,
+  allProducts: state.products.allProducts,
+  exchangeRates: state.currencies,
+})
+
+export default connect(mapStateToProps)(ContentProductDetails)

@@ -1,9 +1,23 @@
-import {ACTION_PRODUCT_ADD, ACTION_PRODUCT_DELETE, ACTION_PRODUCT_EDIT, PRODUCT_ADD, PRODUCT_DELETE, PRODUCT_EDIT, ACTION_PRODUCT_DIALOG_VIEW, PRODUCT_DIALOG_VIEW, ACTION_PRODUCT_DIALOG_EDIT, PRODUCT_DIALOG_EDIT} from './actionTypes'
+import {
+  PRODUCT_ADD,
+  PRODUCT_DELETE,
+  PRODUCT_EDIT,
+  PRODUCT_DIALOG_VIEW,
+  PRODUCT_DIALOG_EDIT,
+  PRODUCT_DIALOG_CLOSE,
+  ACTION_PRODUCT_ADD,
+  ACTION_PRODUCT_DELETE,
+  ACTION_PRODUCT_EDIT,
+  ACTION_PRODUCT_DIALOG_VIEW,
+  ACTION_PRODUCT_DIALOG_EDIT,
+  ACTION_PRODUCT_DIALOG_CLOSE,
+} from './actionTypes'
 import {ACTION_USER_LOGIN, USER_LOGIN} from './actionTypes'
 import {CURRENCIES_ADD, ACTION_CURRENCIES_ADD, CURRENCIES_SELECT, ACTION_CURRENCIES_SELECT} from './actionTypes'
 import { productInterface } from '../hooks/getAllProducts'
 import { userNames } from './reducers/user'
 import { currencyItem } from '../hooks/getAllCurrencies'
+import { count } from 'console'
 
 
 
@@ -12,7 +26,7 @@ export const productAdd = (products:productInterface|productInterface[]):ACTION_
   payload: products,
 })
 
-export const productEdit = (productID, product:productInterface):ACTION_PRODUCT_EDIT => ({
+export const productEdit = (productID:number, product:productInterface):ACTION_PRODUCT_EDIT => ({
   type: PRODUCT_EDIT,
   payload: {id:productID, product}
 })
@@ -30,6 +44,11 @@ export const productDialogView = (productID: productInterface['id']):ACTION_PROD
 export const productDialogEdit = (productID: productInterface['id'], user: userNames):ACTION_PRODUCT_DIALOG_EDIT => ({
   type: PRODUCT_DIALOG_EDIT,
   payload: {id: productID, type:'edit'}
+})
+
+export const productDialogClose = (count: number):ACTION_PRODUCT_DIALOG_CLOSE => ({
+  type: PRODUCT_DIALOG_CLOSE,
+  payload: count,
 })
 
 export const login = (user: userNames):ACTION_USER_LOGIN => ({

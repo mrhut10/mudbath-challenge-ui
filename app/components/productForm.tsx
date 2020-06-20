@@ -1,4 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
+import { connect } from 'react-redux'
+import { productEdit } from '../redux/actions'
+
 import ValidatorObject, {
   validationResult,
   validationTest,
@@ -9,7 +12,7 @@ import Button from './button'
 import TooltipValidation from './TooltipValidation'
 import Input from './Input'
 import { productInterface } from '../hooks/getAllProducts'
-import { currencyStateInterface } from '../hooks/getAllCurrencies'
+import { currenciesState } from '../redux/reducers/currencies'
 import { usePopupStateReturnInterface } from '../hooks/usePopupState'
 import { users } from '../hooks/useUser'
 import ProductListItem from './productListItem'
@@ -20,8 +23,8 @@ import Validator from '~/helpers/validator'
 interface ProductFormProps {
   id: number
   allProducts: productInterface[]
-  currencies: currencyStateInterface
-  saveProductByKey: (id: number, data: productInterface) => void
+  currencies: currenciesState
+  productEdit: (id: number, product: productInterface) => void
 }
 interface fieldsDescriptor {
   id: string
@@ -38,7 +41,7 @@ const ProductForm = ({
   id,
   allProducts,
   currencies,
-  saveProductByKey,
+  productEdit,
 }: ProductFormProps) => {
   const validationRules = {
     id: new ValidatorText()
@@ -65,8 +68,8 @@ const ProductForm = ({
       .isNumber('must be a number')
       .MinValue('price must be positive', 0.01),
     priceBase: new ValidatorText().required('required').isOneOf(
-      `must be one of ${currencies.data.map((item) => item.base).join(' | ')}`,
-      currencies.data.map((item) => item.base),
+      `must be one of ${currencies.allCurrencies.map((item) => item.base).join(' | ')}`,
+      currencies.allCurrencies.map((item) => item.base),
     ),
     relatedProducts: new ValidatorObject()
       .isArray('must be an array of ')
@@ -137,7 +140,7 @@ const ProductForm = ({
       )
       // save product
       console.log({ ...product, ...newData })
-      saveProductByKey(id, { ...product, ...newData })
+      productEdit(id, { ...product, ...newData })
     }
   }
 
@@ -228,7 +231,7 @@ const ProductForm = ({
           onChange={handleChange('priceBase')}
           defaultValue={fieldData.priceBase}
           className="m-3"
-          options={currencies.data.map((item) => item.base)}
+          options={currencies.allCurrencies.map((item) => item.base)}
         />
         <Input
           id="priceAmount"
@@ -258,7 +261,7 @@ const ProductForm = ({
                 item.price.amount *
                 findExchangeRate(
                   item.price.base,
-                  currencies.selectedKey,
+                  currencies.selected,
                   currencies,
                 )
               const toogleItem = (id: number) => {
@@ -282,7 +285,7 @@ const ProductForm = ({
                     <h3 className="font-bold text-lg">{item.name}</h3>
                     <div className="flex">
                       <div className="text-base mr-2">
-                        {priceInLocal.toFixed(2)} ({currencies.selectedKey})
+                        {priceInLocal.toFixed(2)} ({currencies.selected})
                       </div>
                       <div className="text-deemphgrey text-sm">
                         / {item.price.amount} ({item.price.base})
@@ -314,4 +317,9 @@ const ProductForm = ({
   )
 }
 
-export default ProductForm
+const mapStateToProps = state => ({
+  allProducts: state.products.allProducts,
+  currencies: state.currencies,
+})
+
+export default connect(mapStateToProps, {productEdit})(ProductForm)
