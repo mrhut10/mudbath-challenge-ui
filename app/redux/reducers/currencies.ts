@@ -12,11 +12,14 @@ const initalState:currenciesState = {
   allCurrencies: []
 }
 
-const isValidCurrency = (item): item is currencyItem => item &&
+const isValidCurrency = (item): item is currencyItem => {
+  return item &&
   typeof item.base === 'string' && item.base.length === 3 &&
-  typeof item.amount === 'number'
+  typeof item.rates === 'object' &&
+  Object.keys(item.rates).every(key => typeof key === 'string' && typeof item.rates[key] === 'number')
+}
 
-export default function(state: currenciesState, action:ACTION_CURRENCIES_ADD | ACTION_CURRENCIES_SELECT ):currenciesState{
+export default function(state: currenciesState=initalState, action:ACTION_CURRENCIES_ADD | ACTION_CURRENCIES_SELECT ):currenciesState{
   switch (action.type){
     case CURRENCIES_ADD:
       if (isValidCurrency(action.payload)){
