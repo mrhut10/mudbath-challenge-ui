@@ -3,8 +3,15 @@ import { PRODUCT_ADD, PRODUCT_DELETE, PRODUCT_EDIT, ACTION_PRODUCT_ADD, ACTION_P
 
 import { productInterface } from '../../hooks/getAllProducts'
 
+export { productInterface }
+
+export interface productState {
+  allProducts: productInterface[],
+  productDialogState: {id: number, type: 'edit' | 'view'}[]
+}
+
 const initialState: {allProducts:productInterface[]} = {
-  allProducts: []
+  allProducts: [],
 };
 
 export default function (
@@ -21,8 +28,9 @@ export default function (
       }
       break
     default:
-      return state;
-  }
+    }
+
+    return state;
 }
 
 function isProduct(state, item) {
@@ -30,10 +38,8 @@ function isProduct(state, item) {
   if (
     !item.id ||
     typeof item.id !== 'number' ||
-    !Number.isInteger(item.id) ||
-    !state.allProducts.find(
-      prevItem => prevItem.id === item.id
-    )){ return false }
+    !Number.isInteger(item.id)
+  ){ return false }
 
   if (
     !item.name ||
@@ -49,8 +55,7 @@ function isProduct(state, item) {
 
   if (
     !item.price?.base ||
-    typeof item.price.base !== 'string' ||
-    !state.currencies.find(currency => currency.base === item.price.base)
+    typeof item.price.base !== 'string'
   ){ return false }
   
   if (
@@ -64,11 +69,9 @@ function isProduct(state, item) {
     !Array.isArray(item.relatedProducts) ||
     !item.relatedProducts.every(relID => 
       typeof relID === 'number' &&
-      Number.isInteger(relID) &&
-      state.allProducts.some(relPro => relPro.id === relID)
+      Number.isInteger(relID)
     )
-  )
-    return false
+  ){ return false }
 
 
   // passed all of the tests
