@@ -1,9 +1,12 @@
-import { productInterface } from '../hooks/getAllProducts'
+import { productInterface, productState } from '../redux/reducers/products'
 import { currencyItem } from '../hooks/getAllCurrencies'
+import { users } from '../hooks/useUser'
 
 export const PRODUCT_ADD = 'PRODUCT_ADD'
 export const PRODUCT_EDIT = 'PRODUCT_EDIT'
 export const PRODUCT_DELETE = 'PRODUCT_DELETE'
+export const PRODUCT_DIALOG_VIEW = 'PRODUCT_DIALOG_VIEW'
+export const PRODUCT_DIALOG_EDIT = 'PRODUCT_DIALOG_EDIT'
 
 export const USER_LOGIN = 'USER_LOGIN'
 
@@ -28,9 +31,25 @@ export interface ACTION_PRODUCT_DELETE extends action {
   payload: productInterface['id']
 }
 
+export interface ACTION_PRODUCT_DIALOG_VIEW extends action {
+  type: typeof PRODUCT_DIALOG_VIEW
+  payload: {
+    id: number,
+    type:'view',
+  }
+}
+
+export interface ACTION_PRODUCT_DIALOG_EDIT extends action {
+  type: typeof PRODUCT_DIALOG_EDIT
+  payload: {
+    id: number,
+    type:'edit',
+  }
+}
+
 export interface ACTION_USER_LOGIN extends action {
   type: typeof USER_LOGIN,
-  payload: 
+  payload: users
 }
 
 export interface ACTION_CURRENCIES_ADD extends action {
