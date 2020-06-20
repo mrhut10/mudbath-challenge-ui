@@ -9,4 +9,6 @@ export default function(state: userNames=initialState, action: ACTION_USER_LOGIN
   if (action.type === USER_LOGIN && typeof action.payload === 'string' && ['user', 'admin'].includes(action.payload)){
     return action.payload
   }
+
+  else return state
 }
