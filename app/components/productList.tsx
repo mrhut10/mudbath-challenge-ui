@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react'
 import { productInterface } from '../redux/reducers/products'
-import Selectable from './selectable'
 
 interface ProductListProps {
   children?: ReactElement[]
