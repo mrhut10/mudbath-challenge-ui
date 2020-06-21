@@ -14,11 +14,9 @@ import {
 } from './actionTypes'
 import {ACTION_USER_LOGIN, USER_LOGIN} from './actionTypes'
 import {CURRENCIES_ADD, ACTION_CURRENCIES_ADD, CURRENCIES_SELECT, ACTION_CURRENCIES_SELECT} from './actionTypes'
-import { productInterface } from '../hooks/getAllProducts'
+import { productInterface } from './reducers/products'
 import { userNames } from './reducers/user'
-import { currencyItem } from '../hooks/getAllCurrencies'
-import { count } from 'console'
-
+import { currencyItem } from './reducers/currencies'
 
 
 export const productAdd = (products:productInterface|productInterface[]):ACTION_PRODUCT_ADD => ({

@@ -2,16 +2,15 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { findProductByID, findExchangeRate } from '../helpers/index'
 import ProductListItem from './productListItem'
-import { productInterface } from '../hooks/getAllProducts'
+import { productInterface } from '../redux/reducers/products'
 import { currenciesState } from '../redux/reducers/currencies'
-import { users } from '../hooks/useUser'
-import { usePopupStateReturnInterface } from '../hooks/usePopupState'
+import { userNames } from '../redux/reducers/user'
 
 interface ProductDetailsProps {
   id: number
   allProducts: productInterface[]
   currencies: currenciesState
-  user: users
+  user: userNames
 }
 const ProductDetails = ({
   id,

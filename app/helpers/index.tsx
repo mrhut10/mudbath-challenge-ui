@@ -1,4 +1,3 @@
-import { JSONFileState } from '../hooks/getJSONFileData'
 import { currenciesState } from '../redux/reducers/currencies'
 import { productInterface } from '../redux/reducers/products'
 

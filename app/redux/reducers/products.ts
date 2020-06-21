@@ -2,9 +2,15 @@ import { PRODUCT_ADD, PRODUCT_DELETE, PRODUCT_EDIT, ACTION_PRODUCT_ADD, ACTION_P
 import { PRODUCT_DIALOG_EDIT, PRODUCT_DIALOG_VIEW, ACTION_PRODUCT_DIALOG_EDIT, ACTION_PRODUCT_DIALOG_VIEW } from '../actionTypes'
 
 
-import { productInterface } from '../../hooks/getAllProducts'
+export interface productInterface {
+  id: number
+  name: string
+  description: string
+  price: {base: string, amount: number}
+  relatedProducts: number[]
+  photo?: string
+} 
 
-export { productInterface }
 
 export interface productState {
   allProducts: productInterface[],

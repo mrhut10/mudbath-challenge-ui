@@ -1,6 +1,6 @@
 import { productInterface, productState } from '../redux/reducers/products'
-import { currencyItem } from '../hooks/getAllCurrencies'
-import { users } from '../hooks/useUser'
+import { currencyItem } from './reducers/currencies'
+import { userNames } from './reducers/user'
 
 export const PRODUCT_ADD = 'PRODUCT_ADD'
 export const PRODUCT_EDIT = 'PRODUCT_EDIT'
@@ -55,7 +55,7 @@ export interface ACTION_PRODUCT_DIALOG_CLOSE extends action {
 
 export interface ACTION_USER_LOGIN extends action {
   type: typeof USER_LOGIN,
-  payload: users
+  payload: userNames
 }
 
 export interface ACTION_CURRENCIES_ADD extends action {

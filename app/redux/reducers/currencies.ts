@@ -1,6 +1,12 @@
 import { CURRENCIES_ADD, CURRENCIES_SELECT, ACTION_CURRENCIES_SELECT, ACTION_CURRENCIES_ADD } from '../actionTypes'
 
-import { currencyItem } from '../../hooks/getAllCurrencies'
+// import { currencyItem } from '../../hooks/getAllCurrencies'
+export interface currencyItem {
+  base: string,
+  rates: {
+    [key:string]: number
+  }
+}
 
 export interface currenciesState {
   selected: currencyItem["base"]

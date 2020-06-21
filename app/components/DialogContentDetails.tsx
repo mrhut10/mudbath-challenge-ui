@@ -5,17 +5,16 @@ import Overlay from './overlay'
 import DialogMenu from './dialogMenu'
 import ProductDetails from './productDetails'
 
-import { usePopupStateReturnInterface } from '../hooks/usePopupState'
-import { productInterface } from '../hooks/getAllProducts'
-import { currencyStateInterface } from '../hooks/getAllCurrencies'
-import { users } from '../hooks/useUser'
+import { productInterface, productState } from '../redux/reducers/products'
+import { currenciesState } from '../redux/reducers/currencies'
+import { userNames } from '../redux/reducers/user'
 
 interface ContentProductDetailsProps {
   id: productInterface['id']
 //  popupStack: usePopupStateReturnInterface
-  user: users
+  user: userNames
   allProducts: productInterface[]
-  exchangeRates: currencyStateInterface
+  exchangeRates: currenciesState
 }
 
 const ContentProductDetails = ({
