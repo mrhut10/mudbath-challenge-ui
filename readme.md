@@ -1,5 +1,7 @@
 **Mudbath UI Code Challenge**
 
+This branch is a rewritten state logic to use Redux rather than my hooks based state management,
+a preview for this branch can be seen [https://redux-mudbath-challenge-ui.netlify.app](https://redux-mudbath-challenge-ui.netlify.app)
 
 ZYX has ask for a stock viewing system
 
@@ -40,5 +42,5 @@ ZYX has ask for a stock viewing system
   validation was stateful and hence the unique check on product ID's didn't update.
   * it also effected relatedProducts validation (originally was stored in UI as comma separated integers)
   * by pulling the validation logic out of state, and making functional which could run at re-render has removed this problem plus... ended up changing the way relatedProducts was stored in state anyway.
-
-
+  
+  *moved state management into redux store and reducers
