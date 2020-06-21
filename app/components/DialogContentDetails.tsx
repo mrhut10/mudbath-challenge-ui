@@ -11,7 +11,7 @@ import { userNames } from '../redux/reducers/user'
 
 interface ContentProductDetailsProps {
   id: productInterface['id']
-//  popupStack: usePopupStateReturnInterface
+  //  popupStack: usePopupStateReturnInterface
   user: userNames
   allProducts: productInterface[]
   exchangeRates: currenciesState
@@ -47,16 +47,14 @@ const ContentProductDetails = ({
           </div>
         }
       >
-        <DialogMenu
-          id={id}
-        />
+        <DialogMenu id={id} />
       </Overlay>
       <ProductDetails id={id} />
     </>
   )
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   user: state.users,
   allProducts: state.products.allProducts,
   exchangeRates: state.currencies,

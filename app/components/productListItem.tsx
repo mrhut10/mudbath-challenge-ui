@@ -8,7 +8,6 @@ import { currenciesState } from '../redux/reducers/currencies'
 import { userNames } from '~/redux/reducers/user'
 import { productDialogView, productDialogEdit } from '../redux/actions'
 
-
 interface ProductListItemProps {
   id: number
   allProducts: productInterface[]
@@ -16,8 +15,8 @@ interface ProductListItemProps {
   user?: users
   showDetailsButton?: boolean
   showEditButton?: boolean
-  productDialogView: (id:number) => void,
-  productDialogEdit: (id:number, user: userNames) => void,
+  productDialogView: (id: number) => void
+  productDialogEdit: (id: number, user: userNames) => void
 }
 
 function ProductListItem({
@@ -68,9 +67,7 @@ function ProductListItem({
             </div>
             <div className="box-border flex justify-between flex-wrap h-10 w-32">
               {showDetailsButton ? (
-                <Button onClick={() => productDialogView(id)}>
-                  Details
-                </Button>
+                <Button onClick={() => productDialogView(id)}>Details</Button>
               ) : undefined}
               {showEditButton ? (
                 <Button
@@ -89,11 +86,14 @@ function ProductListItem({
   )
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   allProducts: state.products.allProducts,
   exchangeRates: state.currencies,
-  user: state.user
+  user: state.user,
   // popupStack?: usePopupStateReturnInterface
 })
 
-export default connect(mapStateToProps, {productDialogView, productDialogEdit})(ProductListItem)
+export default connect(mapStateToProps, {
+  productDialogView,
+  productDialogEdit,
+})(ProductListItem)

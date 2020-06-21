@@ -67,7 +67,9 @@ const ProductForm = ({
       .isNumber('must be a number')
       .MinValue('price must be positive', 0.01),
     priceBase: new ValidatorText().required('required').isOneOf(
-      `must be one of ${currencies.allCurrencies.map((item) => item.base).join(' | ')}`,
+      `must be one of ${currencies.allCurrencies
+        .map((item) => item.base)
+        .join(' | ')}`,
       currencies.allCurrencies.map((item) => item.base),
     ),
     relatedProducts: new ValidatorObject()
@@ -316,9 +318,9 @@ const ProductForm = ({
   )
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   allProducts: state.products.allProducts,
   currencies: state.currencies,
 })
 
-export default connect(mapStateToProps, {productEdit})(ProductForm)
+export default connect(mapStateToProps, { productEdit })(ProductForm)

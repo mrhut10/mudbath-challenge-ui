@@ -15,7 +15,7 @@ export const CURRENCIES_ADD = 'CURRENCIES_ADD'
 export const CURRENCIES_SELECT = 'CURRENCIES_SELECT'
 
 interface action {
-  type : string,
+  type: string
   payload: any
 }
 
@@ -25,7 +25,7 @@ export interface ACTION_PRODUCT_ADD extends action {
 }
 export interface ACTION_PRODUCT_EDIT extends action {
   type: typeof PRODUCT_EDIT
-  payload: {id: productInterface['id'], product:productInterface}
+  payload: { id: productInterface['id']; product: productInterface }
 }
 export interface ACTION_PRODUCT_DELETE extends action {
   type: typeof PRODUCT_DELETE
@@ -35,16 +35,16 @@ export interface ACTION_PRODUCT_DELETE extends action {
 export interface ACTION_PRODUCT_DIALOG_VIEW extends action {
   type: typeof PRODUCT_DIALOG_VIEW
   payload: {
-    id: number,
-    type:'view',
+    id: number
+    type: 'view'
   }
 }
 
 export interface ACTION_PRODUCT_DIALOG_EDIT extends action {
   type: typeof PRODUCT_DIALOG_EDIT
   payload: {
-    id: number,
-    type:'edit',
+    id: number
+    type: 'edit'
   }
 }
 
@@ -54,7 +54,7 @@ export interface ACTION_PRODUCT_DIALOG_CLOSE extends action {
 }
 
 export interface ACTION_USER_LOGIN extends action {
-  type: typeof USER_LOGIN,
+  type: typeof USER_LOGIN
   payload: userNames
 }
 
@@ -64,6 +64,6 @@ export interface ACTION_CURRENCIES_ADD extends action {
 }
 
 export interface ACTION_CURRENCIES_SELECT extends action {
-  type: typeof CURRENCIES_SELECT,
+  type: typeof CURRENCIES_SELECT
   payload: currencyItem['base']
 }

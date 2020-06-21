@@ -22,11 +22,7 @@ const ProductDetails = ({
     id,
     allProducts,
   )
-  const exRate = findExchangeRate(
-    price.base,
-    currencies.selected,
-    currencies,
-  )
+  const exRate = findExchangeRate(price.base, currencies.selected, currencies)
   const priceInLocal = exRate ? (price.amount * exRate).toFixed(2) : undefined
 
   return (
@@ -50,7 +46,12 @@ const ProductDetails = ({
         <h3 className="text-deemphgrey">Related</h3>
         <div className="py-8">
           {relatedProducts.map((product) => (
-            <ProductListItem id={product} key={product} showDetailsButton showEditButton={false}/>
+            <ProductListItem
+              id={product}
+              key={product}
+              showDetailsButton
+              showEditButton={false}
+            />
           ))}
         </div>
       </div>
@@ -58,12 +59,12 @@ const ProductDetails = ({
   )
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   allProducts: state.products.allProducts,
   currencies: state.currencies,
   user: state.users,
 
-  // popupState: usePopupStateReturnInterface  
+  // popupState: usePopupStateReturnInterface
 })
 
 export default connect(mapStateToProps)(ProductDetails)

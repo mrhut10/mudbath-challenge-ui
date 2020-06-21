@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { connect } from "react-redux";
+import { connect } from 'react-redux'
 import { login, currencySelect } from '../redux/actions'
-import {currenciesState} from '../redux/reducers/currencies'
+import { currenciesState } from '../redux/reducers/currencies'
 import { userNames } from '../redux/reducers/user'
 
 import Popup from 'reactjs-popup'
@@ -64,7 +64,7 @@ const MenuItems = ({
   currencies,
   login,
   currencySelect,
-  toogleUser= () => user === 'admin' ? login('user') : login('admin'),
+  toogleUser = () => (user === 'admin' ? login('user') : login('admin')),
 }) => {
   return (
     <div className="flex justify-center flex-0">
@@ -74,11 +74,11 @@ const MenuItems = ({
   )
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const { user, currencies } = state
   return {
     user,
-    currencies
+    currencies,
   }
 }
 export default connect(mapStateToProps, { login, currencySelect })(MenuItems)

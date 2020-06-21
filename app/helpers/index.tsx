@@ -43,6 +43,6 @@ export function assert(value: boolean, message: string) {
   console.assert(value, message)
 }
 
-export function last<T>(list:T[]):T{
+export function last<T>(list: T[]): T {
   return list && list.length > 0 ? list[list.length - 1] : undefined
 }

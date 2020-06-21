@@ -11,12 +11,12 @@ import { userNames } from '../redux/reducers/user'
 interface DialogMenuProps {
   id: number
   allProducts: productInterface[]
-  user: userNames,
+  user: userNames
   wholeStack: productState['productDialogState']
   showEdit?: boolean
   heading?: string
-  productDialogEdit: (id:number, user: userNames) => void,
-  productDialogClose: (count:number) => void
+  productDialogEdit: (id: number, user: userNames) => void
+  productDialogClose: (count: number) => void
 }
 
 const DialogMenu = ({
@@ -36,10 +36,7 @@ const DialogMenu = ({
       <div className="space-x-3 flex">
         {showEdit && (
           <Button
-            onClick={() =>
-              user === 'admin' &&
-              productDialogEdit(id, user)
-            }
+            onClick={() => user === 'admin' && productDialogEdit(id, user)}
             className={user === 'admin' ? 'my-2' : 'my-2 bg-disabled'}
             tooltip={user === 'admin' ? undefined : 'Login To Enable Editing'}
             disabled={user === 'user'}
@@ -65,9 +62,7 @@ const DialogMenu = ({
     </div>
     {/* Breadcrumbs Nav */}
     <div className="m-2 w-full flex flex-wrap">
-      {
-        
-      wholeStack
+      {wholeStack
         // not include last value & trim enough from front to keep under max number
         .filter((value, i, list) => {
           const maxItems = 4
@@ -91,10 +86,13 @@ const DialogMenu = ({
   </div>
 )
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   allProducts: state.products.allProducts,
   user: state.user,
-  wholeStack: state.products.productDialogState
+  wholeStack: state.products.productDialogState,
 })
 
-export default connect(mapStateToProps, {productDialogEdit, productDialogClose})(DialogMenu)
+export default connect(mapStateToProps, {
+  productDialogEdit,
+  productDialogClose,
+})(DialogMenu)
